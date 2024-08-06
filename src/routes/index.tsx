@@ -1,7 +1,8 @@
 import AppLayout from "@/components/Layout";
 import { Route, Routes } from "react-router-dom";
-import DeckList from "./Deck";
-import Deck from "./Deck/DeckId";
+import Deck from "./Deck";
+import DeckList from "./Decks";
+import NewDeck from "./Decks/New";
 import Home from "./Home";
 import NewCardForm from "./NewCardForm";
 
@@ -11,6 +12,7 @@ const AppRoutes = () => {
       <Route path="/" element={<AppLayout />}>
         <Route index element={<Home />} />
         <Route path="decks" element={<DeckList />} />
+        <Route path="decks/new" element={<NewDeck />} />
         <Route path="deck/:deckId" element={<Deck />}>
           <Route path="new" element={<NewCardForm />} />
         </Route>

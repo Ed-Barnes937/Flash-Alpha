@@ -8,6 +8,7 @@ type DeckState = {
 
 type DeckActions = {
   addCardToDeck: (deckId: TDeck["id"], newCard: TCard) => void;
+  addNewDeck: (newDeck: TDeck) => void;
 };
 
 type DeckStore = DeckState & DeckActions;
@@ -31,6 +32,10 @@ const useDeckStore = create<DeckStore>()(
     addCardToDeck: (deckId, newCard) =>
       set((state) => {
         state.decks[deckId].cards.push(newCard);
+      }),
+    addNewDeck: (newDeck) =>
+      set((state) => {
+        state.decks[newDeck.id] = newDeck;
       }),
   }))
 );

@@ -1,23 +1,22 @@
-import { Button } from "@/components/ui/button";
-import useDeckStore from "@/stores/DeckStore";
-import { useNavigate } from "react-router-dom";
+import CardList from "@/components/CardList";
+import { Button } from "@components/button";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 
-const DeckList = () => {
+type DeckListProps = {};
+const DeckList = ({}: DeckListProps) => {
   const navigate = useNavigate();
-  const decks = useDeckStore((store) => Object.entries(store.decks));
+
+  const { deckId } = useParams();
+
   return (
-    <>
-      <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-        My Decks
-      </h1>
-      <ul>
-        {decks.map(([id, deck]) => (
-          <li onClick={() => navigate(`/deck/${id}`)} key={id}>
-            <Button>{deck.name}</Button>
-          </li>
-        ))}
-      </ul>
-    </>
+    <div>
+      <div className="flex justify-between">
+        <Button onClick={() => navigate("/")}>Home</Button>
+        <Button onClick={() => navigate(`new`)}>Create</Button>
+      </div>
+      <CardList deckId={deckId || ""} />
+      <Outlet />
+    </div>
   );
 };
 

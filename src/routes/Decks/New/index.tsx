@@ -13,6 +13,7 @@ import useDeckStore from "@/stores/DeckStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
 const formSchema = z.object({
@@ -35,7 +36,7 @@ const NewDeck = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     addNewDeck({
       name: values.name,
-      id: "22222",
+      id: uuidv4(),
       cards: [],
     });
 

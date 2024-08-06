@@ -12,6 +12,7 @@ import { Textarea } from "@components/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 import useDeckStore from "../../stores/DeckStore";
 
@@ -40,7 +41,7 @@ const NewCardForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     deckId &&
       addNewCard(deckId, {
-        id: "22",
+        id: uuidv4(),
         front: values.front,
         back: values.back,
       });

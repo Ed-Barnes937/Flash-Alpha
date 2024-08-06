@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { AudioLinesIcon } from "lucide-react";
 import type { TCard } from "../../types";
 import { Button } from "../ui/button";
 
@@ -8,18 +8,40 @@ type CardProps = {
 };
 
 const Card = ({ front, back }: CardProps) => {
-  const [flipped, setFlipped] = useState(false);
-
-  let content;
-
-  if (flipped) content = <div>{back}</div>;
-  else content = <div>{front}</div>;
+  const speak = (text: string) => {
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      speechSynthesis.speak(utterance);
+    } else {
+      alert("Sorry, your browser does not support text-to-speech.");
+    }
+  };
 
   return (
-    <div>
-      {content}
-      <Button onClick={() => setFlipped(!flipped)}>flip</Button>
-    </div>
+    <>
+      <div className="p-2 border-r-2 justify-center border-black flex items-center">
+        {front}
+        <Button
+          variant={"ghost"}
+          size={"sm"}
+          className="justify-self-end"
+          onClick={() => speak(front)}
+        >
+          <AudioLinesIcon size={"1rem"} />
+        </Button>
+      </div>
+      <div className="justify-center p-2 flex items-center">
+        {back}
+        <Button
+          variant={"ghost"}
+          size={"sm"}
+          className="justify-self-end"
+          onClick={() => speak(back)}
+        >
+          <AudioLinesIcon size={"1rem"} />
+        </Button>{" "}
+      </div>
+    </>
   );
 };
 

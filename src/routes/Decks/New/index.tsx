@@ -9,6 +9,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import useDeckStore from "@/stores/DeckStore";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -20,6 +21,7 @@ const formSchema = z.object({
   name: z
     .string()
     .min(2, { message: "Name text must be at least 2 characters." }),
+  bulkText: z.string(),
 });
 
 const NewDeck = () => {
@@ -70,26 +72,52 @@ const NewDeck = () => {
               </FormItem>
             )}
           />
-          {/* <FormField
+
+          <FormField
             control={form.control}
-            name="back"
+            name="bulkText"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Back Text</FormLabel>
+                <FormLabel>Text to Card</FormLabel>
                 <FormControl>
                   <Textarea placeholder="Back" {...field} />
                 </FormControl>
                 <FormDescription>
-                  This will be the text on the back of your card
+                  Click auto-generate to make minimal cards
                 </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
-          /> */}
-          <Button type="submit">Submit</Button>
-          <Button type="button" onClick={() => navigate(`/decks`)}>
-            Cancel
+          />
+          <Button
+            type="button"
+            onClick={() =>
+              // TODO: this
+              console.log("Will call out to OPENAPI to generate cards")
+            }
+          >
+            Auto Generate Cards
           </Button>
+
+          <div>
+            <Button>Manually add card</Button>
+          </div>
+
+          <div>
+            <p>Cards go here</p>
+            <ol>
+              <li>1</li>
+              <li>2</li>
+              <li>3</li>
+            </ol>
+          </div>
+
+          <div className="flex gap-2">
+            <Button type="submit">Submit</Button>
+            <Button type="button" onClick={() => navigate(`/decks`)}>
+              Cancel
+            </Button>
+          </div>
         </form>
       </Form>
     </div>

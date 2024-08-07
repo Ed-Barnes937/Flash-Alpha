@@ -1,42 +1,34 @@
-import { Button } from "@components/button";
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@components/form";
-import { Textarea } from "@components/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
-import { v4 as uuidv4 } from "uuid";
-import { z } from "zod";
-import useDeckStore from "../../stores/DeckStore";
+import { Button } from '@components/button'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/form'
+import { Textarea } from '@components/textarea'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { useNavigate, useParams } from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid'
+import { z } from 'zod'
+import useDeckStore from '../../stores/DeckStore'
 
 const formSchema = z.object({
   front: z.string().min(2, {
-    message: "Front text must be at least 2 characters.",
+    message: 'Front text must be at least 2 characters.',
   }),
   back: z.string().min(2, {
-    message: "Back text must be at least 2 characters.",
+    message: 'Back text must be at least 2 characters.',
   }),
-});
+})
 
 const NewCardForm = () => {
-  const addNewCard = useDeckStore((store) => store.addCardToDeck);
-  const { deckId } = useParams();
-  const navigate = useNavigate();
+  const addNewCard = useDeckStore((store) => store.addCardToDeck)
+  const { deckId } = useParams()
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      front: "",
-      back: "",
+      front: '',
+      back: '',
     },
-  });
+  })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     deckId &&
@@ -44,9 +36,9 @@ const NewCardForm = () => {
         id: uuidv4(),
         front: values.front,
         back: values.back,
-      });
+      })
 
-    navigate(`/deck/${deckId}`);
+    navigate(`/deck/${deckId}`)
   }
 
   return (
@@ -61,9 +53,7 @@ const NewCardForm = () => {
               <FormControl>
                 <Textarea placeholder="Front" {...field} />
               </FormControl>
-              <FormDescription>
-                This will be the text on the front of your card
-              </FormDescription>
+              <FormDescription>This will be the text on the front of your card</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -77,9 +67,7 @@ const NewCardForm = () => {
               <FormControl>
                 <Textarea placeholder="Back" {...field} />
               </FormControl>
-              <FormDescription>
-                This will be the text on the back of your card
-              </FormDescription>
+              <FormDescription>This will be the text on the back of your card</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -90,7 +78,7 @@ const NewCardForm = () => {
         </Button>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default NewCardForm;
+export default NewCardForm

@@ -1,16 +1,23 @@
-import CardList from "@/components/CardList";
-import { Outlet, useParams } from "react-router-dom";
+import BackButton from '@/components/BackButton'
+import CardList from '@/components/CardList'
+import useDeckStore from '@/stores/DeckStore'
+import { Outlet, useParams } from 'react-router-dom'
 
-type DeckListProps = {};
+type DeckListProps = {}
 const DeckList = ({}: DeckListProps) => {
-  const { deckId } = useParams();
+  const { deckId } = useParams()
+  const deck = useDeckStore((store) => store.decks[deckId || ''])
 
   return (
     <div>
-      <CardList deckId={deckId || ""} />
+      <div className="flex items-center">
+        <BackButton />
+        <span className="text-lg font-semibold capitalize">{deck.name}</span>
+      </div>
+      <CardList deckId={deckId || ''} />
       <Outlet />
     </div>
-  );
-};
+  )
+}
 
-export default DeckList;
+export default DeckList

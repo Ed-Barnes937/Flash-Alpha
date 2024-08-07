@@ -1,10 +1,10 @@
-import AppLayout from "@/components/Layout";
-import { Route, Routes } from "react-router-dom";
-import Deck from "./Deck";
-import DeckList from "./Decks";
-import NewDeck from "./Decks/New";
-import Home from "./Home";
-import NewCardForm from "./NewCardForm";
+import AppLayout from '@/components/Layout'
+import { Route, Routes } from 'react-router-dom'
+import Deck from './Deck'
+import DeckList from './Decks'
+import NewDeck from './Decks/New'
+import Home from './Home'
+import NewCardForm from './NewCardForm'
 
 const AppRoutes = () => {
   return (
@@ -42,7 +42,7 @@ const AppRoutes = () => {
         />
       </Route>
     </Routes>
-  );
-};
+  )
+}
 
-export default AppRoutes;
+export default AppRoutes

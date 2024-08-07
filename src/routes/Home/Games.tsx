@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import type { TDeck } from '@/types'
+import { BlocksIcon, NotebookTextIcon, Rows3Icon } from 'lucide-react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 
 type GameProps = {
@@ -18,25 +19,37 @@ const Games = ({ selectedDeck }: GameProps) => {
       <CardContent>
         <div className="grid grid-cols-3 gap-12">
           <Button
+            className="h-48"
             onClick={() =>
               navigate({ pathname: 'flashcard', search: createSearchParams({ deckId: selectedDeck }).toString() })
             }
           >
-            FlashCards
+            <div>
+              <NotebookTextIcon size={'10rem'} className="text-slate-200" />
+              Flashcards
+            </div>
           </Button>
           <Button
+            className="h-48"
             onClick={() =>
               navigate({ pathname: 'rank', search: createSearchParams({ deckId: selectedDeck }).toString() })
             }
           >
-            Ranking
+            <div>
+              <Rows3Icon size={'10rem'} className="text-slate-200" />
+              Ranking
+            </div>
           </Button>
           <Button
+            className="h-48"
             onClick={() =>
               navigate({ pathname: 'match', search: createSearchParams({ deckId: selectedDeck }).toString() })
             }
           >
-            Matching
+            <div>
+              <BlocksIcon size={'10rem'} className="text-slate-200" />
+              Matching
+            </div>
           </Button>
         </div>
       </CardContent>

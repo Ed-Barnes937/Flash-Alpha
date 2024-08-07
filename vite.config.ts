@@ -17,4 +17,7 @@ export default defineConfig({
       },
     ],
   },
+  define: {
+    VITE_OPENAPI_KEY: process.env.VITE_OPENAPI_KEY,
+  },
 })

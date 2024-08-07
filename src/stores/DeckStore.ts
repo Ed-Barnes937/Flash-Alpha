@@ -44,7 +44,8 @@ const useDeckStore = create<DeckStore>()(
       }),
     addNewDeck: (newDeck) =>
       set((state) => {
-        state.decks[newDeck.id] = newDeck
+        const parsedNewDeck = { ...newDeck, cards: newDeck.cards.map((card) => ({ ...card, deckId: newDeck.id })) }
+        state.decks[newDeck.id] = parsedNewDeck
       }),
     deleteCardFromDeck: (deckId, cardId) =>
       set((state) => {

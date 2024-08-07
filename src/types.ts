@@ -2,7 +2,7 @@ export type TCard = {
   id: string
   front: string
   back: string
-  deckId: TDeck['id']
+  deckId?: TDeck['id']
 }
 
 export type TDeck = {

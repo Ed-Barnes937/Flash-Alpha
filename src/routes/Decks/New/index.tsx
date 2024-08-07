@@ -17,7 +17,9 @@ import { AI_PROMPT } from '../../../utils/consts'
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name text must be at least 2 characters.' }),
-  bulkText: z.string(),
+  bulkText: z.string().optional(),
+  newQuestion: z.string(),
+  newAnswer: z.string(),
 })
 
 // TODO - tweak this, we probably don't want the sections in the response (maybe save somewhere for later though), and we need to give it a format
@@ -127,15 +129,55 @@ const NewDeck = () => {
             </FormItem>
           )}
         />
-        <Button type="button" onClick={() => fetchData(form.getValues().bulkText)}>
-          {loading ? <LoaderIcon className="animate-spin" /> : 'Auto Generate Cards'}
-        </Button>
 
-        {error && <p className="text-red-500">{error}</p>}
+        <FormField
+          control={form.control}
+          name="newQuestion"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>New Question</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="newAnswer"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>New Answer</FormLabel>
+              <FormControl>
+                <Input type="text" placeholder="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-        <div>
-          <Button type="button">Manually add card</Button>
+        <div className="flex gap-2">
+          <Button type="button" onClick={() => fetchData(form.getValues().bulkText)}>
+            {loading ? <LoaderIcon className="animate-spin" /> : 'Auto Generate Cards'}
+          </Button>
+          <Button
+            type="button"
+            onClick={() =>
+              setCards((cards) => [
+                ...cards,
+                {
+                  id: generateUUID(),
+                  front: form.getValues().newQuestion,
+                  back: form.getValues().newAnswer,
+                },
+              ])
+            }
+          >
+            Manually add card
+          </Button>
         </div>
+        {error && <p className="text-red-500">{error}</p>}
 
         <CardList cards={cards} deleteCard={deleteCard} />
 

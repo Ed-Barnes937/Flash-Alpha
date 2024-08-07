@@ -20,18 +20,18 @@ const CardRow = ({ front, back, id, deckId, deleteCard }: CardRowProps) => {
     <TableRow>
       <TableCell>
         {front}
-        <Button type="button" variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(front)}>
+        <Button type="button" variant={'ghost'} size={'icon'} className="justify-self-end" onClick={() => speak(front)}>
           <AudioLinesIcon size={'1rem'} />
         </Button>
       </TableCell>
       <TableCell>
         {back}
-        <Button type="button" variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(back)}>
+        <Button type="button" variant={'ghost'} size={'icon'} className="justify-self-end" onClick={() => speak(back)}>
           <AudioLinesIcon size={'1rem'} />
         </Button>{' '}
       </TableCell>
       <TableCell className="text-right">
-        <Button type="button" onClick={() => deleteCard(deckId || '', id)}>
+        <Button size={'icon'} type="button" onClick={() => deleteCard(deckId || '', id)}>
           <TrashIcon />
         </Button>
       </TableCell>

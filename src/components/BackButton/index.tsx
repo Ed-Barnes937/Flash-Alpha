@@ -6,7 +6,7 @@ const BackButton = () => {
   const navigate = useNavigate()
 
   return (
-    <Button variant={'ghost'} size={'sm'} onClick={() => navigate(-1)}>
+    <Button variant={'ghost'} size={'icon'} onClick={() => navigate(-1)}>
       <ChevronLeftIcon />
     </Button>
   )

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import useDeckStore from '@/stores/DeckStore'
-import { TrashIcon } from 'lucide-react'
+import { PlusIcon, TrashIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const DeckList = () => {
@@ -17,8 +17,8 @@ const DeckList = () => {
           <BackButton />
           <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">My Decks</h1>
         </div>
-        <Button aria-label="Create deck" onClick={() => navigate('new')}>
-          +
+        <Button size={'icon'} aria-label="Create deck" onClick={() => navigate('new')}>
+          <PlusIcon />
         </Button>
       </div>
       <Card>
@@ -40,7 +40,7 @@ const DeckList = () => {
                   <TableCell>{deck.lastVisited?.toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
                     <Button
-                      size={'sm'}
+                      size={'icon'}
                       variant={'destructive'}
                       onClick={(e) => {
                         e.stopPropagation()

@@ -34,7 +34,7 @@ const Header = ({ selectedDeck, setSelected }: HeaderProps) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant={'ghost'} size={'sm'} onClick={() => navigate('decks')}>
+              <Button variant={'ghost'} size={'icon'} onClick={() => navigate('decks')}>
                 <LayersIcon />
               </Button>
             </TooltipTrigger>

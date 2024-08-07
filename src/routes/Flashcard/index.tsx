@@ -1,3 +1,4 @@
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { shuffleArray } from '@/utils/shuffle'
 import BackButton from '@components/BackButton'
 import { Button } from '@components/ui/button'
@@ -58,20 +59,22 @@ const FlashCardView = () => {
         <BackButton />
         <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Flashcard Revision</h1>
       </div>
-      {mode === 'Finished' && (
-        <div>
-          <div>Finished revision of 'insert deck name here'</div>
-          <Button onClick={() => navigate('/')}>Home</Button>
-        </div>
-      )}
-      {mode !== 'Finished' && (
-        <>
-          <div>
-            {mode === 'Question' && <div>Question: </div>}
-            {mode === 'Answer' && <div>Answer: </div>}
-            <div className="w-full p-4 outline outline-black">{getText()}</div>
-          </div>
-
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            {/* TODO: this */}
+            {mode === 'Finished' && `🎉 Finished revision of 'insert deck name here' 🎉`}
+            {mode === 'Question' && `Question`}
+            {mode === 'Answer' && `Answer`}
+          </CardTitle>
+        </CardHeader>
+        {/* TODO: this */}
+        <CardContent>
+          {mode === 'Finished' && <div>Insert Score Here</div>}
+          {mode !== 'Finished' && <div className="w-full p-4 outline outline-black">{getText()}</div>}
+        </CardContent>
+        <CardFooter>
+          {mode === 'Finished' && <Button onClick={() => navigate('/')}>Home</Button>}
           {mode === 'Question' && <Button onClick={() => setMode('Answer')}>Reveal Answer</Button>}
           {mode === 'Answer' && (
             <div className="flex gap-6">
@@ -83,8 +86,8 @@ const FlashCardView = () => {
               </Button>
             </div>
           )}
-        </>
-      )}
+        </CardFooter>
+      </Card>
     </div>
   )
 }

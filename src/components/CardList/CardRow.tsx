@@ -2,10 +2,11 @@ import { AudioLinesIcon, TrashIcon } from 'lucide-react'
 import type { CardListProps } from '../../components/CardList'
 import type { TCard } from '../../types'
 import { Button } from '../ui/button'
+import { TableCell, TableRow } from '../ui/table'
 
-type CardProps = TCard & Pick<CardListProps, 'deleteCard'>
+type CardRowProps = TCard & Pick<CardListProps, 'deleteCard'>
 
-const Card = ({ front, back, id, deckId, deleteCard }: CardProps) => {
+const CardRow = ({ front, back, id, deckId, deleteCard }: CardRowProps) => {
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text)
@@ -16,24 +17,26 @@ const Card = ({ front, back, id, deckId, deleteCard }: CardProps) => {
   }
 
   return (
-    <>
-      <div className="flex items-center justify-between border-b border-r border-black p-2">
+    <TableRow>
+      <TableCell>
         {front}
         <Button type="button" variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(front)}>
           <AudioLinesIcon size={'1rem'} />
         </Button>
-      </div>
-      <div className="flex items-center justify-between border-b border-black p-2">
+      </TableCell>
+      <TableCell>
         {back}
         <Button type="button" variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(back)}>
           <AudioLinesIcon size={'1rem'} />
         </Button>{' '}
-      </div>
-      <Button type="button" onClick={() => deleteCard(deckId || '', id)}>
-        <TrashIcon />
-      </Button>
-    </>
+      </TableCell>
+      <TableCell className="text-right">
+        <Button type="button" onClick={() => deleteCard(deckId || '', id)}>
+          <TrashIcon />
+        </Button>
+      </TableCell>
+    </TableRow>
   )
 }
 
-export default Card
+export default CardRow

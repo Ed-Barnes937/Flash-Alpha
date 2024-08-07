@@ -1,5 +1,7 @@
 import type { TCards } from '../../types'
-import Card from '../Card'
+import { Card, CardContent } from '../ui/card'
+import { Table, TableBody, TableHead, TableHeader, TableRow } from '../ui/table'
+import CardRow from './CardRow'
 
 export type CardListProps = {
   cards: TCards
@@ -7,14 +9,24 @@ export type CardListProps = {
 }
 const CardList = ({ cards = {}, deleteCard }: CardListProps) => {
   return (
-    <div className="mx-20 grid grid-cols-3 items-center">
-      <h2 className="w-full scroll-m-20 text-center text-2xl font-semibold tracking-tight">Side 1</h2>
-      <h2 className="w-full scroll-m-20 text-center text-2xl font-semibold tracking-tight">Side 2</h2>
-      <span>Actions</span>
-      {Object.values(cards).map((card, index) => (
-        <Card key={`card-item-${index}`} {...card} deleteCard={deleteCard} />
-      ))}
-    </div>
+    <Card>
+      <CardContent className="p-6">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Side 1</TableHead>
+              <TableHead>Side 2</TableHead>
+              <TableHead className="text-right">actions</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {Object.values(cards).map((card, index) => (
+              <CardRow key={`card-item-${index}`} {...card} deleteCard={deleteCard} />
+            ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   )
 }
 

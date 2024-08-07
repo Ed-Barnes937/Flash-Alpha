@@ -1,4 +1,6 @@
+import BackButton from '@/components/BackButton'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -105,100 +107,110 @@ const NewDeck = () => {
   }
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input type="text" placeholder="Name" {...field} />
-              </FormControl>
-              <FormDescription>What is the name of this Deck?</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+    <>
+      <div>
+        <BackButton />
+      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <Card>
+            <CardContent className="p-6">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="Name" {...field} />
+                    </FormControl>
+                    <FormDescription>What is the name of this Deck?</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        <FormField
-          control={form.control}
-          name="bulkText"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>AI input</FormLabel>
-              <FormControl>
-                <Textarea placeholder="" {...field} />
-              </FormControl>
-              <FormDescription>Click auto-generate to scaffold cards from text</FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <FormField
+                control={form.control}
+                name="bulkText"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>AI input</FormLabel>
+                    <FormControl>
+                      <Textarea placeholder="" {...field} />
+                    </FormControl>
+                    <FormDescription>Click auto-generate to scaffold cards from text</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-        <FormField
-          control={form.control}
-          name="newQuestion"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>New Question</FormLabel>
-              <FormControl>
-                <Input type="text" placeholder="" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="newAnswer"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>New Answer</FormLabel>
-              <FormControl>
-                <Input type="text" placeholder="" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+              <FormField
+                control={form.control}
+                name="newQuestion"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New Question</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="newAnswer"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>New Answer</FormLabel>
+                    <FormControl>
+                      <Input type="text" placeholder="" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </CardContent>
+            <CardFooter>
+              <div className="flex gap-2">
+                <Button type="button" onClick={() => fetchData(form.getValues().bulkText || '')}>
+                  {loading ? <LoaderIcon className="animate-spin" /> : 'Auto Generate Cards'}
+                </Button>
+                <Button
+                  type="button"
+                  onClick={() =>
+                    setCards((cards) => {
+                      const result = { ...cards }
+                      const uuid = generateUUID()
+                      result[uuid] = {
+                        id: uuid,
+                        front: form.getValues().newQuestion,
+                        back: form.getValues().newAnswer,
+                        createdAt: new Date(),
+                      }
+                      return result
+                    })
+                  }
+                >
+                  Manually add card
+                </Button>
+              </div>
+              {error && <p className="text-red-500">{error}</p>}
+            </CardFooter>
+          </Card>
 
-        <div className="flex gap-2">
-          <Button type="button" onClick={() => fetchData(form.getValues().bulkText || '')}>
-            {loading ? <LoaderIcon className="animate-spin" /> : 'Auto Generate Cards'}
-          </Button>
-          <Button
-            type="button"
-            onClick={() =>
-              setCards((cards) => {
-                const result = { ...cards }
-                const uuid = generateUUID()
-                result[uuid] = {
-                  id: uuid,
-                  front: form.getValues().newQuestion,
-                  back: form.getValues().newAnswer,
-                  createdAt: new Date(),
-                }
-                return result
-              })
-            }
-          >
-            Manually add card
-          </Button>
-        </div>
-        {error && <p className="text-red-500">{error}</p>}
+          <CardList cards={cards} deleteCard={deleteCard} />
 
-        <CardList cards={cards} deleteCard={deleteCard} />
-
-        <div className="flex justify-end gap-2">
-          <Button type="submit">Submit</Button>
-          <Button type="button" onClick={() => navigate(`/decks`)}>
-            Cancel
-          </Button>
-        </div>
-      </form>
-    </Form>
+          <div className="flex justify-end gap-2">
+            <Button type="submit">Save</Button>
+            <Button type="button" onClick={() => navigate(`/decks`)} variant={'destructive'}>
+              Cancel
+            </Button>
+          </div>
+        </form>
+      </Form>
+    </>
   )
 }
 

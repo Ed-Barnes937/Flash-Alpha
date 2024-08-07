@@ -1,6 +1,9 @@
 import BackButton from '@/components/BackButton'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import useDeckStore from '@/stores/DeckStore'
+import { TrashIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 
 const DeckList = () => {
@@ -18,13 +21,41 @@ const DeckList = () => {
           +
         </Button>
       </div>
-      <ul className="flex flex-col gap-2">
-        {decks.map(([id, deck]) => (
-          <li onClick={() => navigate(`/deck/${id}`)} key={id}>
-            <Button>{deck.name}</Button>
-          </li>
-        ))}
-      </ul>
+      <Card>
+        <CardContent className="p-6">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Name</TableHead>
+                <TableHead>Created At</TableHead>
+                <TableHead>Last Revised</TableHead>
+                <TableHead className="text-right">actions</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {decks.map(([id, deck]) => (
+                <TableRow key={id} onClick={() => navigate(`/deck/${id}`)} className="cursor-pointer">
+                  <TableCell className="font-medium">deck.name</TableCell>
+                  <TableCell>{deck.createdAt.toLocaleDateString()}</TableCell>
+                  <TableCell>{deck.lastVisited?.toLocaleDateString()}</TableCell>
+                  <TableCell className="text-right">
+                    <Button
+                      size={'sm'}
+                      variant={'destructive'}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        console.log('This will remove a deck')
+                      }}
+                    >
+                      <TrashIcon />
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
     </>
   )
 }

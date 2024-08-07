@@ -7,6 +7,7 @@ type DeckListProps = {}
 const DeckList = ({}: DeckListProps) => {
   const { deckId } = useParams()
   const deck = useDeckStore((store) => store.decks[deckId || ''])
+  const deleteCard = useDeckStore((store) => store.deleteCardFromDeck)
 
   return (
     <div>
@@ -14,7 +15,7 @@ const DeckList = ({}: DeckListProps) => {
         <BackButton />
         <span className="text-lg font-semibold capitalize">{deck.name}</span>
       </div>
-      <CardList cards={deck.cards} />
+      <CardList cards={deck.cards} deleteCard={deleteCard} />
       <Outlet />
     </div>
   )

@@ -91,6 +91,10 @@ const NewDeck = () => {
     navigate(`/decks`)
   }
 
+  const deleteCard = (_: string, cardId: string) => {
+    setCards((cards) => cards.filter((card) => card.id !== cardId))
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -133,7 +137,7 @@ const NewDeck = () => {
           <Button type="button">Manually add card</Button>
         </div>
 
-        <CardList cards={cards} />
+        <CardList cards={cards} deleteCard={deleteCard} />
 
         <div className="flex justify-end gap-2">
           <Button type="submit">Submit</Button>

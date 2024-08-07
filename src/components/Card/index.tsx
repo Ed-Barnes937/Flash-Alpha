@@ -1,13 +1,11 @@
-import { AudioLinesIcon } from 'lucide-react'
+import { AudioLinesIcon, TrashIcon } from 'lucide-react'
+import type { CardListProps } from '../../components/CardList'
 import type { TCard } from '../../types'
 import { Button } from '../ui/button'
 
-type CardProps = {
-  front: TCard['front']
-  back: TCard['back']
-}
+type CardProps = TCard & Pick<CardListProps, 'deleteCard'>
 
-const Card = ({ front, back }: CardProps) => {
+const Card = ({ front, back, id, deckId, deleteCard }: CardProps) => {
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text)
@@ -31,6 +29,9 @@ const Card = ({ front, back }: CardProps) => {
           <AudioLinesIcon size={'1rem'} />
         </Button>{' '}
       </div>
+      <Button type="button" onClick={() => deleteCard(deckId, id)}>
+        <TrashIcon />
+      </Button>
     </>
   )
 }

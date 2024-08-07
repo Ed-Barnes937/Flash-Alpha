@@ -19,15 +19,15 @@ const Card = ({ front, back }: CardProps) => {
 
   return (
     <>
-      <div className="flex items-center justify-center border-r-2 border-black p-2">
+      <div className="flex items-center justify-between border-b border-r border-black p-2">
         {front}
-        <Button variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(front)}>
+        <Button type="button" variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(front)}>
           <AudioLinesIcon size={'1rem'} />
         </Button>
       </div>
-      <div className="flex items-center justify-center p-2">
+      <div className="flex items-center justify-between border-b border-black p-2">
         {back}
-        <Button variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(back)}>
+        <Button type="button" variant={'ghost'} size={'sm'} className="justify-self-end" onClick={() => speak(back)}>
           <AudioLinesIcon size={'1rem'} />
         </Button>{' '}
       </div>

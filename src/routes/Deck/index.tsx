@@ -14,7 +14,7 @@ const DeckList = ({}: DeckListProps) => {
         <BackButton />
         <span className="text-lg font-semibold capitalize">{deck.name}</span>
       </div>
-      <CardList deckId={deckId || ''} />
+      <CardList cards={deck.cards} />
       <Outlet />
     </div>
   )

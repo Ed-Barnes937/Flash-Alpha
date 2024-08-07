@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
+import CardList from '../../../components/CardList'
 import { AI_PROMPT } from '../../../utils/consts'
 
 const formSchema = z.object({
@@ -115,9 +116,9 @@ const NewDeck = () => {
             <FormItem>
               <FormLabel>AI input</FormLabel>
               <FormControl>
-                <Textarea placeholder="Text you want to use to generate your cards" {...field} />
+                <Textarea placeholder="" {...field} />
               </FormControl>
-              <FormDescription>Click auto-generate to make minimal cards</FormDescription>
+              <FormDescription>Click auto-generate to scaffold cards from text</FormDescription>
               <FormMessage />
             </FormItem>
           )}
@@ -132,16 +133,9 @@ const NewDeck = () => {
           <Button type="button">Manually add card</Button>
         </div>
 
-        <div>
-          <p>Cards go here</p>
-          <ol>
-            {cards.map((card) => (
-              <li key={card.id}>{card.front}</li>
-            ))}
-          </ol>
-        </div>
+        <CardList cards={cards} />
 
-        <div className="flex gap-2">
+        <div className="flex justify-end gap-2">
           <Button type="submit">Submit</Button>
           <Button type="button" onClick={() => navigate(`/decks`)}>
             Cancel

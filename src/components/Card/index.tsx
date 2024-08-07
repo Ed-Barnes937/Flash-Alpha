@@ -29,7 +29,7 @@ const Card = ({ front, back, id, deckId, deleteCard }: CardProps) => {
           <AudioLinesIcon size={'1rem'} />
         </Button>{' '}
       </div>
-      <Button type="button" onClick={() => deleteCard(deckId, id)}>
+      <Button type="button" onClick={() => deleteCard(deckId || '', id)}>
         <TrashIcon />
       </Button>
     </>

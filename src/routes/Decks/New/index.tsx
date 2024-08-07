@@ -40,11 +40,13 @@ const NewDeck = () => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>()
-  const [cards, setCards] = useState<TCard[]>([])
+  const [cards, setCards] = useState<Record<string, TCard>>({})
 
   const fetchData = async (input: string) => {
     setLoading(true)
     setError(null)
+
+    if (!input) return
 
     try {
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -88,13 +90,18 @@ const NewDeck = () => {
       name: values.name,
       id: generateUUID(),
       cards,
+      createdAt: new Date(),
     })
 
     navigate(`/decks`)
   }
 
   const deleteCard = (_: string, cardId: string) => {
-    setCards((cards) => cards.filter((card) => card.id !== cardId))
+    setCards((cards) => {
+      const result = { ...cards }
+      delete result[cardId]
+      return result
+    })
   }
 
   return (
@@ -158,20 +165,23 @@ const NewDeck = () => {
         />
 
         <div className="flex gap-2">
-          <Button type="button" onClick={() => fetchData(form.getValues().bulkText)}>
+          <Button type="button" onClick={() => fetchData(form.getValues().bulkText || '')}>
             {loading ? <LoaderIcon className="animate-spin" /> : 'Auto Generate Cards'}
           </Button>
           <Button
             type="button"
             onClick={() =>
-              setCards((cards) => [
-                ...cards,
-                {
-                  id: generateUUID(),
+              setCards((cards) => {
+                const result = { ...cards }
+                const uuid = generateUUID()
+                result[uuid] = {
+                  id: uuid,
                   front: form.getValues().newQuestion,
                   back: form.getValues().newAnswer,
-                },
-              ])
+                  createdAt: new Date(),
+                }
+                return result
+              })
             }
           >
             Manually add card

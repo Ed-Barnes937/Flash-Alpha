@@ -36,6 +36,7 @@ const NewCardForm = () => {
         id: generateUUID(),
         front: values.front,
         back: values.back,
+        createdAt: new Date(),
       })
 
     navigate(`/deck/${deckId}`)

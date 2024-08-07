@@ -15,14 +15,14 @@ const FlashCardView = () => {
   const deck = useDeckStore((store) => store.decks[deckId || ''])
   const cards = deck.cards
 
-  const uuidArr = cards.map((card) => card.id)
+  const uuidArr = Object.values(cards).map((card) => card.id)
   const jumbledArr = shuffleArray(uuidArr)
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
   const [mode, setMode] = useState<Mode>('Question')
 
   const getText = () => {
-    const card = cards.find((card) => card.id === jumbledArr[currentCardIndex])
+    const card = cards[jumbledArr[currentCardIndex]]
     if (card) {
       switch (mode) {
         case 'Question':
@@ -35,11 +35,10 @@ const FlashCardView = () => {
     }
   }
 
-  const incrementQuestion = () => {
+  const AnswerQuestion = (correct: boolean) => {
     const nextCardCount = currentCardIndex + 1
 
-    console.log(mode, nextCardCount, cards.length)
-    if (nextCardCount >= cards.length) {
+    if (nextCardCount >= Object.values(cards).length) {
       setMode('Finished')
     } else {
       setCurrentCardIndex(nextCardCount)
@@ -66,10 +65,10 @@ const FlashCardView = () => {
           {mode === 'Question' && <Button onClick={() => setMode('Answer')}>Reveal Answer</Button>}
           {mode === 'Answer' && (
             <div className="flex gap-6">
-              <Button className="w-full" onClick={incrementQuestion}>
+              <Button className="w-full" onClick={() => AnswerQuestion(true)}>
                 <CheckIcon />
               </Button>
-              <Button className="w-full" onClick={incrementQuestion}>
+              <Button className="w-full" onClick={() => AnswerQuestion(false)} variant={'destructive'}>
                 <XIcon />
               </Button>
             </div>

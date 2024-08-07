@@ -4,11 +4,13 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import useDeckStore from '@/stores/DeckStore'
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { TCard } from '@types'
+import { generateUUID } from '@utils/generateUUID'
+import { parseAIResponse } from '@utils/parseAIResponse'
 import { LoaderIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import { AI_PROMPT } from '../../../utils/consts'
 
@@ -35,7 +37,7 @@ const NewDeck = () => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>()
-  const [cards, setCards] = useState([])
+  const [cards, setCards] = useState<TCard[]>([])
 
   const fetchData = async (input: string) => {
     setLoading(true)
@@ -64,8 +66,8 @@ const NewDeck = () => {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      console.log(data.choices)
-      // setCards(data.choices)
+      console.log(data)
+      setCards(parseAIResponse(data.choices[0].message.content))
     } catch (err) {
       // narrow error to string or error
       if (typeof err === 'string') {
@@ -81,7 +83,7 @@ const NewDeck = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     addNewDeck({
       name: values.name,
-      id: uuidv4(),
+      id: generateUUID(),
       cards: [],
     })
 
@@ -133,9 +135,9 @@ const NewDeck = () => {
         <div>
           <p>Cards go here</p>
           <ol>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
+            {cards.map((card) => (
+              <li key={card.id}>{card.front}</li>
+            ))}
           </ol>
         </div>
 

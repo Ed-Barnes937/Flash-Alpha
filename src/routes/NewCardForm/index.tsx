@@ -2,9 +2,9 @@ import { Button } from '@components/button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/form'
 import { Textarea } from '@components/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { generateUUID } from '@utils/generateUUID'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid'
 import { z } from 'zod'
 import useDeckStore from '../../stores/DeckStore'
 
@@ -33,7 +33,7 @@ const NewCardForm = () => {
   function onSubmit(values: z.infer<typeof formSchema>) {
     deckId &&
       addNewCard(deckId, {
-        id: uuidv4(),
+        id: generateUUID(),
         front: values.front,
         back: values.back,
       })

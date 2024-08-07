@@ -15,6 +15,10 @@ export default defineConfig({
         find: '@components',
         replacement: resolve(__dirname, './src/components/ui'),
       },
+      {
+        find: '@utils',
+        replacement: resolve(__dirname, './src/utils'),
+      },
     ],
   },
   define: {

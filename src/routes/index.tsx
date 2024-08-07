@@ -5,6 +5,7 @@ import DeckList from './Decks'
 import NewDeck from './Decks/New'
 import Home from './Home'
 import NewCardForm from './NewCardForm'
+import FlashCardView from './Flashcard'
 
 const AppRoutes = () => {
   return (
@@ -16,14 +17,7 @@ const AppRoutes = () => {
         <Route path="deck/:deckId" element={<Deck />}>
           <Route path="new" element={<NewCardForm />} />
         </Route>
-        <Route
-          path="flashcard"
-          element={
-            <div>
-              <h1>This is where we'd show flashcards</h1>
-            </div>
-          }
-        />
+        <Route path="flashcard" element={<FlashCardView />} />
         <Route
           path="rank"
           element={

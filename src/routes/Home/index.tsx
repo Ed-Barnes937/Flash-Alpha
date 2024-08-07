@@ -32,8 +32,8 @@ const Home = () => {
           </Select>
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger>
-                <Button variant={'ghost'} size={'sm'}>
+              <TooltipTrigger asChild>
+                <Button variant={'ghost'} size={'sm'} onClick={() => navigate('decks')}>
                   <LayersIcon />
                 </Button>
               </TooltipTrigger>
@@ -45,7 +45,6 @@ const Home = () => {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-12">
-        {/* <Button onClick={() => navigate('decks')}>Manage Decks</Button> */}
         <Button
           onClick={() =>
             navigate({ pathname: 'flashcard', search: createSearchParams({ deckId: selectedDeck }).toString() })

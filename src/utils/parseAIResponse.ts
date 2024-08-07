@@ -1,4 +1,4 @@
-import type { TCards } from '@types'
+import type { TCards } from '@/types'
 import { generateUUID } from './generateUUID'
 
 export const parseAIResponse = (input: string): TCards => {

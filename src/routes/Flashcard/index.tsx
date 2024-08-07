@@ -41,6 +41,7 @@ const FlashCardView = () => {
   const AnswerQuestion = (correct: boolean) => {
     const nextCardCount = currentCardIndex + 1
 
+    console.log(jumbledArr[currentCardIndex], correct)
     if (nextCardCount >= Object.values(cards).length) {
       setMode('Finished')
       deckId && updateLastVisitedDeck(deckId)

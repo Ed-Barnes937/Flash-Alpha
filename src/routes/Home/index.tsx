@@ -1,10 +1,8 @@
 import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import useDeckStore from '@/stores/DeckStore'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@radix-ui/react-tooltip'
-import { LayersIcon } from 'lucide-react'
 import { useState } from 'react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
+import Header from './Header'
 
 const Home = () => {
   const navigate = useNavigate()
@@ -15,35 +13,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between border-b pb-1">
-        <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Dashboard</h1>
-        <div className="flex gap-2">
-          <Select defaultValue={selectedDeck} onValueChange={(id) => setDeck(id)}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="Deck" />
-            </SelectTrigger>
-            <SelectContent>
-              {Object.values(decks).map((deck) => (
-                <SelectItem key={deck.id} value={deck.id}>
-                  {deck.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button variant={'ghost'} size={'sm'} onClick={() => navigate('decks')}>
-                  <LayersIcon />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Deck Library</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        </div>
-      </div>
+      <Header selectedDeck={selectedDeck} setSelected={setDeck} />
       <div className="grid grid-cols-3 gap-12">
         <Button
           onClick={() =>

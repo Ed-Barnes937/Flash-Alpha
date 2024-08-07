@@ -15,8 +15,8 @@ const Home = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between">
-        <h1 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">Dashboard</h1>
+      <div className="flex items-center justify-between border-b pb-1">
+        <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Dashboard</h1>
         <div className="flex gap-2">
           <Select defaultValue={selectedDeck} onValueChange={(id) => setDeck(id)}>
             <SelectTrigger className="w-[180px]">

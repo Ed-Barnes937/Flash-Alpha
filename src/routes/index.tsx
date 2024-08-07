@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router-dom'
 import Deck from './Deck'
 import DeckList from './Decks'
 import NewDeck from './Decks/New'
+import FlashCardView from './Flashcard'
 import Home from './Home'
 import NewCardForm from './NewCardForm'
-import FlashCardView from './Flashcard'
 
 const AppRoutes = () => {
   return (

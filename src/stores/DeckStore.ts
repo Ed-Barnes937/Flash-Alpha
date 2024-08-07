@@ -10,8 +10,8 @@ type DeckActions = {
   addCardToDeck: (deckId: TDeck['id'], newCard: TCard) => void
   addNewDeck: (newDeck: TDeck) => void
   deleteCardFromDeck: (deckId: TDeck['id'], cardId: TCard['id']) => void
-  // updateLastVisitedDeck
-  // updateLastVisitedCard: (deckId: TDeck['id'], cardId: TCard['id']) => void
+  updateLastVisitedDeck: (deckId: TDeck['id']) => void
+  updateLastVisitedCard: (deckId: TDeck['id'], cardId: TCard['id']) => void
 }
 
 type DeckStore = DeckState & DeckActions
@@ -49,11 +49,16 @@ const useDeckStore = create<DeckStore>()(
       set((state) => {
         delete state.decks[deckId].cards[cardId]
       }),
-    // updateLastVisitedCard: (deckId, cardId) => {
-    //   set(state => {
-    //     state.decks[deckId].cards.
-    //   })
-    // },
+    updateLastVisitedDeck: (deckId) => {
+      set((state) => {
+        state.decks[deckId].lastVisited = new Date()
+      })
+    },
+    updateLastVisitedCard: (deckId, cardId) => {
+      set((state) => {
+        state.decks[deckId].cards[cardId].lastVisited = new Date()
+      })
+    },
   }))
 )
 

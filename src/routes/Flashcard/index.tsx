@@ -1,9 +1,10 @@
+import { shuffleArray } from '@/utils/shuffle'
+import BackButton from '@components/BackButton'
+import { Button } from '@components/ui/button'
 import { CheckIcon, XIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
-import { Button } from '../../components/ui/button'
 import useDeckStore from '../../stores/DeckStore'
-import { shuffleArray } from '../../utils/shuffle'
 
 type Mode = 'Question' | 'Answer' | 'Finished'
 
@@ -13,6 +14,8 @@ const FlashCardView = () => {
   const navigate = useNavigate()
 
   const deck = useDeckStore((store) => store.decks[deckId || ''])
+  const updateLastVisitedDeck = useDeckStore((store) => store.updateLastVisitedDeck)
+  const updateLastVisitedCard = useDeckStore((store) => store.updateLastVisitedCard)
   const cards = deck.cards
 
   const uuidArr = Object.values(cards).map((card) => card.id)
@@ -40,7 +43,9 @@ const FlashCardView = () => {
 
     if (nextCardCount >= Object.values(cards).length) {
       setMode('Finished')
+      deckId && updateLastVisitedDeck(deckId)
     } else {
+      deckId && updateLastVisitedCard(deckId, jumbledArr[currentCardIndex])
       setCurrentCardIndex(nextCardCount)
       setMode('Question')
     }
@@ -48,6 +53,10 @@ const FlashCardView = () => {
 
   return (
     <div className="flex flex-col gap-6">
+      <div className="flex items-center border-b">
+        <BackButton />
+        <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Flashcard Revision</h1>
+      </div>
       {mode === 'Finished' && (
         <div>
           <div>Finished revision of 'insert deck name here'</div>

@@ -84,7 +84,7 @@ const NewDeck = () => {
     addNewDeck({
       name: values.name,
       id: generateUUID(),
-      cards: [],
+      cards,
     })
 
     navigate(`/decks`)

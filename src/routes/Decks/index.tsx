@@ -18,7 +18,7 @@ const DeckList = () => {
   const [sortOption, setSortOption] = useState<TableColumns>('Created at')
   const [sortDir, setSortDir] = useState(true)
 
-  const sortedArr = decks.sort((a, b) => {
+  let sortedArr = decks.sort((a, b) => {
     switch (sortOption) {
       case 'Confidence':
         return (a[1].confidenceScore || 0) - (b[1].confidenceScore || 0)
@@ -32,6 +32,7 @@ const DeckList = () => {
         return a[1].name.localeCompare(b[1].name)
     }
   })
+  if (sortDir) sortedArr = sortedArr.reverse()
 
   const toggleSort = (header: TableColumns) => {
     if (sortOption === header) setSortDir((dir) => !dir)
@@ -59,10 +60,16 @@ const DeckList = () => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="w-[100px]">Name</TableHead>
-                <TableHead onClick={() => toggleSort('Created at')}>Created At</TableHead>
-                <TableHead onClick={() => toggleSort('Last Revised')}>Last Revised</TableHead>
-                <TableHead onClick={() => toggleSort('Confidence')}>
+                <TableHead onClick={() => toggleSort('Name')} className="w-[100px] cursor-pointer">
+                  Name
+                </TableHead>
+                <TableHead className="cursor-pointer" onClick={() => toggleSort('Created at')}>
+                  Created At
+                </TableHead>
+                <TableHead className="cursor-pointer" onClick={() => toggleSort('Last Revised')}>
+                  Last Revised
+                </TableHead>
+                <TableHead className="cursor-pointer" onClick={() => toggleSort('Confidence')}>
                   <div className="flex items-center gap-2">
                     Confidence
                     <TooltipProvider>
@@ -77,8 +84,10 @@ const DeckList = () => {
                     </TooltipProvider>
                   </div>
                 </TableHead>
-                <TableHead onClick={() => toggleSort('Last Test Score')}>Last Test Score</TableHead>
-                <TableHead className="text-right">actions</TableHead>
+                <TableHead className="cursor-pointer" onClick={() => toggleSort('Last Test Score')}>
+                  Last Test Score
+                </TableHead>
+                <TableHead className="cursor-pointer text-right">actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>

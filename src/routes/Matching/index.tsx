@@ -80,13 +80,14 @@ const MatchingPage = ({}: MatchingPageProps) => {
         <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Card Matching</h1>
       </div>
       {correctAnswers.length !== cards.length && (
-        <div className="grid grid-cols-6 gap-1">
+        <div className="grid grid-cols-3 gap-1 md:grid-cols-4 lg:grid-cols-6">
           {cardsAndAnswers.map((card) => (
             <div
               key={card.id}
               className={cn([
-                'relative flex aspect-square items-center justify-center rounded-lg border bg-card p-2 text-center text-card-foreground shadow-sm',
+                'relative flex aspect-square items-center justify-center rounded-lg border bg-card p-2 text-center text-sm text-card-foreground shadow-sm',
                 'transition-all duration-200 hover:scale-95',
+                'lg:text-base',
                 {
                   'bg-red-300': firstSelected === card.id,
                   'bg-green-300': secondSelected === card.id,

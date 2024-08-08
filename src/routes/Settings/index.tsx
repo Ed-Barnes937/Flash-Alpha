@@ -9,7 +9,6 @@ export const Settings = () => {
 	const addNewDeck = deckStore.addNewDeck
 	return <>
 		<BackButton/>
-		<h1>TODO - pitch and rate setters</h1>
 		<Button onClick={() => generateDemoData(addNewDeck)}>Generate Demo Data</Button>
 	</>
 }

@@ -1,7 +1,7 @@
 import BackButton from '@components/Buttons/BackButton'
 import CardList from '@components/CardList'
 import { Button } from '@components/ui/button'
-import { Card, CardContent, CardFooter } from '@components/ui/card'
+import { Card, CardContent } from '@components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
 import { Input } from '@components/ui/input'
 import { Textarea } from '@components/ui/textarea'
@@ -130,53 +130,54 @@ const NewDeck = () => {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="bulkText"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>AI input</FormLabel>
-                    <FormControl>
-                      <Textarea placeholder="" {...field} />
-                    </FormControl>
-                    <FormDescription>Click auto-generate to scaffold cards from text</FormDescription>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="newQuestion"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Question</FormLabel>
-                    <FormControl>
-                      <Input type="text" placeholder="" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="newAnswer"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>New Answer</FormLabel>
-                    <FormControl>
-                      <Input type="text" placeholder="" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </CardContent>
-            <CardFooter>
-              <div className="flex gap-2">
+              <div className="mb-2 flex flex-col gap-2">
+                <FormField
+                  control={form.control}
+                  name="bulkText"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>AI input</FormLabel>
+                      <FormControl>
+                        <Textarea placeholder="" {...field} />
+                      </FormControl>
+                      <FormDescription>Click auto-generate to scaffold cards from text</FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <Button type="button" onClick={() => fetchData(form.getValues().bulkText || '')}>
                   {loading ? <LoaderIcon className="animate-spin" /> : 'Auto Generate Cards'}
                 </Button>
+                {error && <p className="text-red-500">{error}</p>}
+              </div>
+
+              <div className="flex flex-col gap-2">
+                <FormField
+                  control={form.control}
+                  name="newQuestion"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>New Question</FormLabel>
+                      <FormControl>
+                        <Input type="text" placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="newAnswer"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>New Answer</FormLabel>
+                      <FormControl>
+                        <Input type="text" placeholder="" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <Button
                   type="button"
                   onClick={() =>
@@ -196,8 +197,7 @@ const NewDeck = () => {
                   Manually add card
                 </Button>
               </div>
-              {error && <p className="text-red-500">{error}</p>}
-            </CardFooter>
+            </CardContent>
           </Card>
 
           <CardList cards={cards} deleteCard={deleteCard} />

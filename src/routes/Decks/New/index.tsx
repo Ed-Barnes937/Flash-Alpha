@@ -8,8 +8,9 @@ import { Textarea } from '@components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useDeckStore from '@stores/DeckStore'
 import type { TCards } from '@types'
-import { AI_PROMPT } from '@utils/consts'
+import { AI_HINT_PROMPT, AI_PROMPT } from '@utils/consts'
 import { generateUUID } from '@utils/generateUUID'
+import { parseAIHintsResponse } from '@utils/parseAIHintsResponse'
 import { parseAIResponse } from '@utils/parseAIResponse'
 import { LoaderIcon } from 'lucide-react'
 import { useState } from 'react'
@@ -24,9 +25,12 @@ const formSchema = z.object({
   newAnswer: z.string(),
 })
 
-// TODO - tweak this, we probably don't want the sections in the response (maybe save somewhere for later though), and we need to give it a format
 const generatePrompt = (input: string) => {
   return `${AI_PROMPT} ${input}`
+}
+
+const generateHintPrompt = (input: string) => {
+	return `${AI_HINT_PROMPT} ${input}}`
 }
 
 const NewDeck = () => {
@@ -46,6 +50,8 @@ const NewDeck = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>()
   const [cards, setCards] = useState<TCards>({})
+  const [hints, setHints] = useState<string[]>([])
+  const [hintIndex, setHintIndex] = useState<number>(0)
 
   const fetchData = async (input: string) => {
     setLoading(true)
@@ -87,6 +93,51 @@ const NewDeck = () => {
       }
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchHints = async (input: string) => {
+    // setLoading(true)
+    // setError(null)
+
+    if (!input) return
+
+    try {
+      const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${import.meta.env.VITE_OPENAPI_KEY}`,
+        },
+        body: JSON.stringify({
+          model: 'gpt-4o-mini',
+          messages: [
+            {
+              role: 'user',
+              content: generateHintPrompt(input),
+            },
+          ],
+          temperature: 0.7,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok')
+      }
+      const data = await response.json()
+
+      setHints(parseAIHintsResponse(data.choices[0].message.content))
+    } catch (err) {
+      // // narrow error to string or error
+      // if (typeof err === 'string') {
+      //   setError(err)
+      // } else if (err instanceof Error) {
+      //   setError(err.message)
+      // }
+	  // TODO - hint error handling
+    } finally {
+      // setLoading(false)
+	  // TODO - hint loading handling
     }
   }
 
@@ -153,7 +204,18 @@ const NewDeck = () => {
                   {loading ? <LoaderIcon className="animate-spin" /> : 'Auto Generate Cards'}
                 </Button>
                 {error && <p className="text-red-500">{error}</p>}
+				<Button type="button" onClick={() => fetchHints(form.getValues().bulkText || '')}>
+				  Generate hints
+				</Button>
               </div>
+
+		      {hints.length !== 0 && 
+					<>
+						<p>{hints[hintIndex]}</p>
+						<Button type="button" onClick={() => setHintIndex(Math.max(0, hintIndex - 1))}>Previous Hint</Button>
+						<Button type="button" onClick={() => setHintIndex(Math.min(hints.length-1, hintIndex + 1))}>Next Hint</Button>
+					</>
+				}
 
               <div className="flex flex-col gap-2">
                 <FormField

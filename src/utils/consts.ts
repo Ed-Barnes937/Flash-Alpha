@@ -106,3 +106,14 @@ export const DEMO_DATA: TDecks = {
     lastVisited: new Date(),
   },
 }
+
+export const AI_HINT_PROMPT = `I want you to split the provided text sections, with each section summarising one main point.
+
+Instructions to create good sections:
+- Keep the sections simple, clear, and focused on the most important information.
+- Make sure the sections are specific and unambiguous.
+- Use simple and direct language to make the sections easy to read and understand.
+
+Format: Put each section on a separate line.
+
+Text: `

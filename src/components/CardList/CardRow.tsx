@@ -3,13 +3,17 @@ import type { CardListProps } from '../../components/CardList'
 import type { TCard } from '../../types'
 import { Button } from '../ui/button'
 import { TableCell, TableRow } from '../ui/table'
+import useSettingsStore from '@stores/SettingsStore'
 
 type CardRowProps = TCard & Pick<CardListProps, 'deleteCard'>
 
 const CardRow = ({ front, back, id, deckId, deleteCard }: CardRowProps) => {
+  const settingsStore = useSettingsStore()
   const speak = (text: string) => {
     if ('speechSynthesis' in window) {
       const utterance = new SpeechSynthesisUtterance(text)
+	  utterance.pitch = settingsStore.pitch
+	  utterance.rate = settingsStore.rate
       speechSynthesis.speak(utterance)
     } else {
       alert('Sorry, your browser does not support text-to-speech.')

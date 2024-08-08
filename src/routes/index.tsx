@@ -6,6 +6,7 @@ import NewDeck from './Decks/New'
 import FlashCardView from './Flashcard'
 import Home from './Home'
 import NewCardForm from './NewCardForm'
+import { Settings } from './Settings'
 
 const AppRoutes = () => {
   return (
@@ -34,6 +35,7 @@ const AppRoutes = () => {
             </div>
           }
         />
+		<Route path="settings" element={<Settings />}></Route>
       </Route>
     </Routes>
   )

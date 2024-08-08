@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader } from '@components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
 import { Input } from '@components/ui/input'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useDeckStore from '@stores/DeckStore'
 import { useForm } from 'react-hook-form'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
@@ -11,12 +12,17 @@ const formSchema = z.object({
   confidence: z.number().min(0).max(100),
 })
 
-type FinishedCardProps = {}
+type FinishedCardProps = {
+  result: number
+}
 
-const FinishedCard = ({}: FinishedCardProps) => {
+const FinishedCard = ({ result }: FinishedCardProps) => {
   const navigate = useNavigate()
   const [params] = useSearchParams()
   const deckId = params.get('deckId')
+
+  const setConfidenceScore = useDeckStore((store) => store.setDeckConfidence)
+  const setFlashcardScore = useDeckStore((store) => store.setDeckFlashcardScore)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -26,7 +32,8 @@ const FinishedCard = ({}: FinishedCardProps) => {
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(deckId, values)
+    deckId && setConfidenceScore(deckId, values.confidence)
+    deckId && setFlashcardScore(deckId, result)
 
     navigate(`/`)
   }

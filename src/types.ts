@@ -14,6 +14,10 @@ export type TDeck = {
   id: string
   createdAt: Date
   lastVisited?: Date
+  // test score
+  flashcardScore?: number
+  // self reported
+  confidenceScore?: number
 }
 
 export type TDecks = Record<string, TDeck>

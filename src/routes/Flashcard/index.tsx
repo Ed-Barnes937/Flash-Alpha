@@ -60,7 +60,7 @@ const FlashCardView = () => {
         <BackButton />
         <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Flashcard Revision</h1>
       </div>
-      {mode === 'Finished' && <FinishedCard />}
+      {mode === 'Finished' && <FinishedCard result={100} />}
       {mode !== 'Finished' && (
         <Card>
           <CardHeader>

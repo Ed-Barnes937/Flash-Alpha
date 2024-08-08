@@ -17,7 +17,8 @@ const Metrics = ({ selectedDeck }: MetricsProps) => {
       </CardHeader>
       <CardContent>
         <div>Time since last visited: {deck.lastVisited?.toLocaleString() || 'never'}</div>
-        <div>Confidence Score: '60%'</div>
+        <div>Self Reported Confidence Score: {deck.confidenceScore || 'never'}</div>
+        <div>Test Score: {deck.flashcardScore || 'never'}</div>
       </CardContent>
     </Card>
   )

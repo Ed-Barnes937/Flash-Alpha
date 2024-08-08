@@ -13,6 +13,8 @@ type DeckActions = {
   deleteCardFromDeck: (deckId: TDeck['id'], cardId: TCard['id']) => void
   updateLastVisitedDeck: (deckId: TDeck['id']) => void
   updateLastVisitedCard: (deckId: TDeck['id'], cardId: TCard['id']) => void
+  setDeckConfidence: (deckId: TDeck['id'], confidence: number) => void
+  setDeckFlashcardScore: (deckId: TDeck['id'], score: number) => void
 }
 
 type DeckStore = DeckState & DeckActions
@@ -63,6 +65,18 @@ const useDeckStore = create<DeckStore>()(
       set((state) => {
         state.decks[deckId].cards[cardId].lastVisited = new Date()
       })
+    },
+    setDeckConfidence: (deckId, confidence) => {
+      if (deckId)
+        set((state) => {
+          state.decks[deckId].confidenceScore = confidence
+        })
+    },
+    setDeckFlashcardScore: (deckId, score) => {
+      if (deckId)
+        set((state) => {
+          state.decks[deckId].flashcardScore = score
+        })
     },
   }))
 )

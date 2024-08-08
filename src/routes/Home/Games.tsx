@@ -25,7 +25,7 @@ const Games = ({ selectedDeck }: GameProps) => {
             }
           >
             <div>
-              <NotebookTextIcon size={'10rem'} className="text-slate-200" />
+              <NotebookTextIcon size={'10rem'} />
               Flashcards
             </div>
           </Button>
@@ -36,7 +36,7 @@ const Games = ({ selectedDeck }: GameProps) => {
             }
           >
             <div>
-              <Rows3Icon size={'10rem'} className="text-slate-200" />
+              <Rows3Icon size={'10rem'} />
               Ranking
             </div>
           </Button>
@@ -47,7 +47,7 @@ const Games = ({ selectedDeck }: GameProps) => {
             }
           >
             <div>
-              <BlocksIcon size={'10rem'} className="text-slate-200" />
+              <BlocksIcon size={'10rem'} />
               Matching
             </div>
           </Button>

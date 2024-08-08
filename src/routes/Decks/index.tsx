@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 const DeckList = () => {
   const navigate = useNavigate()
   const decks = useDeckStore((store) => Object.entries(store.decks))
+  const deleteDeck = useDeckStore((store) => store.deleteDeck)
 
   return (
     <>
@@ -35,7 +36,7 @@ const DeckList = () => {
             <TableBody>
               {decks.map(([id, deck]) => (
                 <TableRow key={id} onClick={() => navigate(`/deck/${id}`)} className="cursor-pointer">
-                  <TableCell className="font-medium">deck.name</TableCell>
+                  <TableCell className="font-medium">{deck.name}</TableCell>
                   <TableCell>{deck.createdAt.toLocaleDateString()}</TableCell>
                   <TableCell>{deck.lastVisited?.toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
@@ -44,7 +45,7 @@ const DeckList = () => {
                       variant={'destructive'}
                       onClick={(e) => {
                         e.stopPropagation()
-                        console.log('This will remove a deck')
+                        deleteDeck(id)
                       }}
                     >
                       <TrashIcon />

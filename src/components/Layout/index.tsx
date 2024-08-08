@@ -13,11 +13,11 @@ const AppLayout = () => {
         >
           Chad Flashcards
         </h1>
-		<div className="text-right">
-        <Button variant={'ghost'} size={'icon'} onClick={() => navigate('/settings')}>
-          <SettingsIcon />
-        </Button>
-		</div>
+        <div className="text-right">
+          <Button variant={'ghost'} size={'icon'} onClick={() => navigate('/settings')}>
+            <SettingsIcon />
+          </Button>
+        </div>
       </div>
       <Outlet />
     </div>

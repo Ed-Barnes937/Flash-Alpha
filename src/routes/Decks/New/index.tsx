@@ -1,7 +1,7 @@
 import BackButton from '@components/Buttons/BackButton'
 import CardList from '@components/CardList'
 import { Button } from '@components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
 import { Input } from '@components/ui/input'
 import { Textarea } from '@components/ui/textarea'
@@ -91,14 +91,15 @@ const NewDeck = () => {
   }
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    const id = generateUUID()
     addNewDeck({
       name: values.name,
-      id: generateUUID(),
+      id: id,
       cards,
       createdAt: new Date(),
     })
 
-    navigate(`/decks`)
+    navigate(`/deck/${id}`)
   }
 
   const deleteCard = (_: string, cardId: string) => {
@@ -211,14 +212,14 @@ const NewDeck = () => {
             <CardContent className="p-6">
               <CardList cards={cards} deleteCard={deleteCard} />
             </CardContent>
-          </Card>
 
-          <div className="flex justify-end gap-2">
-            <Button type="submit">Save</Button>
-            <Button type="button" onClick={() => navigate(`/decks`)} variant={'destructive'}>
-              Cancel
-            </Button>
-          </div>
+            <CardFooter className="justify-end gap-2">
+              <Button type="submit">Save</Button>
+              <Button type="button" onClick={() => navigate(`/decks`)} variant={'destructive'}>
+                Cancel
+              </Button>
+            </CardFooter>
+          </Card>
         </form>
       </Form>
     </>

@@ -13,6 +13,5 @@ export const parseAIResponse = (input: string): TCards => {
     returnObj[uuid] = { id: uuid, front: card[1], back: card[2], createdAt: new Date() }
   })
 
-  console.log(returnObj)
   return returnObj
 }

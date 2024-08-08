@@ -2,7 +2,8 @@ import BackButton from '@components/Buttons/BackButton'
 import { Button } from '@components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@components/ui/card'
 import { shuffleArray } from '@utils/shuffle'
-import { CheckIcon, XIcon } from 'lucide-react'
+import useSpeech from '@utils/useSpeech'
+import { AudioLinesIcon, CheckIcon, XIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import useDeckStore from '../../stores/DeckStore'
@@ -18,6 +19,8 @@ const FlashCardView = () => {
   const updateLastVisitedDeck = useDeckStore((store) => store.updateLastVisitedDeck)
   const updateLastVisitedCard = useDeckStore((store) => store.updateLastVisitedCard)
   const cards = deck.cards
+
+  const { speak } = useSpeech()
 
   const uuidArr = Object.values(cards).map((card) => card.id)
   const jumbledArr = shuffleArray(uuidArr)
@@ -43,7 +46,6 @@ const FlashCardView = () => {
   const AnswerQuestion = (correct: boolean) => {
     const nextCardCount = currentCardIndex + 1
 
-    console.log(jumbledArr[currentCardIndex], correct)
     if (nextCardCount >= Object.values(cards).length) {
       setMode('Finished')
       deckId && updateLastVisitedDeck(deckId)
@@ -75,7 +77,10 @@ const FlashCardView = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="w-full rounded-sm border p-4">
+            <div className="relative w-full rounded-sm border p-4">
+              <Button size="icon" className="absolute right-2 top-2" onClick={() => speak(getText() || '')}>
+                <AudioLinesIcon />
+              </Button>
               <div className="text-center text-lg font-semibold">{getText()}</div>
             </div>
           </CardContent>

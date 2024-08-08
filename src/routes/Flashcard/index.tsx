@@ -6,6 +6,7 @@ import { CheckIcon, XIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import useDeckStore from '../../stores/DeckStore'
+import FinishedCard from './FinishedCard'
 
 type Mode = 'Question' | 'Answer' | 'Finished'
 
@@ -59,35 +60,33 @@ const FlashCardView = () => {
         <BackButton />
         <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Flashcard Revision</h1>
       </div>
-      <Card>
-        <CardHeader>
-          <CardTitle>
-            {/* TODO: this */}
-            {mode === 'Finished' && `🎉 Finished revision of 'insert deck name here' 🎉`}
-            {mode === 'Question' && `Question`}
-            {mode === 'Answer' && `Answer`}
-          </CardTitle>
-        </CardHeader>
-        {/* TODO: this */}
-        <CardContent>
-          {mode === 'Finished' && <div>Insert Score Here</div>}
-          {mode !== 'Finished' && <div className="w-full p-4 outline outline-black">{getText()}</div>}
-        </CardContent>
-        <CardFooter>
-          {mode === 'Finished' && <Button onClick={() => navigate('/')}>Home</Button>}
-          {mode === 'Question' && <Button onClick={() => setMode('Answer')}>Reveal Answer</Button>}
-          {mode === 'Answer' && (
-            <div className="flex gap-6">
-              <Button className="w-full" onClick={() => AnswerQuestion(true)}>
-                <CheckIcon />
-              </Button>
-              <Button className="w-full" onClick={() => AnswerQuestion(false)} variant={'destructive'}>
-                <XIcon />
-              </Button>
-            </div>
-          )}
-        </CardFooter>
-      </Card>
+      {mode === 'Finished' && <FinishedCard />}
+      {mode !== 'Finished' && (
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              {mode === 'Question' && `Question`}
+              {mode === 'Answer' && `Answer`}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="w-full p-4 outline outline-black">{getText()}</div>
+          </CardContent>
+          <CardFooter>
+            {mode === 'Question' && <Button onClick={() => setMode('Answer')}>Reveal Answer</Button>}
+            {mode === 'Answer' && (
+              <div className="flex gap-6">
+                <Button className="w-full" onClick={() => AnswerQuestion(true)}>
+                  <CheckIcon />
+                </Button>
+                <Button className="w-full" onClick={() => AnswerQuestion(false)} variant={'destructive'}>
+                  <XIcon />
+                </Button>
+              </div>
+            )}
+          </CardFooter>
+        </Card>
+      )}
     </div>
   )
 }

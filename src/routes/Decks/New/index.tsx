@@ -282,7 +282,7 @@ const NewDeck = () => {
 
             <CardFooter className="justify-end gap-2">
               <Button type="submit">Save</Button>
-              <Button type="button" onClick={() => navigate(`/decks`)} variant={'destructive'}>
+              <Button type="button" onClick={() => navigate(`/`)} variant={'destructive'}>
                 Cancel
               </Button>
             </CardFooter>

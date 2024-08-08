@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@component
 import { shuffleArray } from '@utils/shuffle'
 import { CheckIcon, XIcon } from 'lucide-react'
 import { useState } from 'react'
-import { useNavigate, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import useDeckStore from '../../stores/DeckStore'
 import FinishedCard from './FinishedCard'
 
@@ -13,7 +13,6 @@ type Mode = 'Question' | 'Answer' | 'Finished'
 const FlashCardView = () => {
   const [searchParams] = useSearchParams()
   const deckId = searchParams.get('deckId')
-  const navigate = useNavigate()
 
   const deck = useDeckStore((store) => store.decks[deckId || ''])
   const updateLastVisitedDeck = useDeckStore((store) => store.updateLastVisitedDeck)

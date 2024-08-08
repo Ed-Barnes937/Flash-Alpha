@@ -1,10 +1,9 @@
 import AppLayout from '@components/Layout'
 import { Route, Routes } from 'react-router-dom'
-import Deck from './Deck'
+import DeckHome from './DeckDashboard'
 import DeckList from './Decks'
 import NewDeck from './Decks/New'
 import FlashCardView from './Flashcard'
-import Home from './Home'
 import NewCardForm from './NewCardForm'
 import { Settings } from './Settings'
 
@@ -12,10 +11,9 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<AppLayout />}>
-        <Route index element={<Home />} />
-        <Route path="decks" element={<DeckList />} />
-        <Route path="decks/new" element={<NewDeck />} />
-        <Route path="deck/:deckId" element={<Deck />}>
+        <Route index element={<DeckList />} />
+        <Route path="deck/new" element={<NewDeck />} />
+        <Route path="deck/:deckId" element={<DeckHome />}>
           <Route path="new" element={<NewCardForm />} />
         </Route>
         <Route path="flashcard" element={<FlashCardView />} />
@@ -35,7 +33,7 @@ const AppRoutes = () => {
             </div>
           }
         />
-		<Route path="settings" element={<Settings />}></Route>
+        <Route path="settings" element={<Settings />}></Route>
       </Route>
     </Routes>
   )

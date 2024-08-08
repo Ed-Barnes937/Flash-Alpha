@@ -27,6 +27,10 @@ export default defineConfig({
         find: '@types',
         replacement: resolve(__dirname, './src/types.ts'),
       },
+      {
+        find: '@routes',
+        replacement: resolve(__dirname, './src/routes'),
+      },
     ],
   },
   define: {

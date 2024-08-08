@@ -1,13 +1,11 @@
 import useDeckStore from '@/stores/DeckStore'
-import type { TDeck } from '@/types'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card'
+import { useParams } from 'react-router-dom'
 
-type MetricsProps = {
-  selectedDeck: TDeck['id']
-}
+const Metrics = () => {
+  const { deckId } = useParams()
 
-const Metrics = ({ selectedDeck }: MetricsProps) => {
-  const deck = useDeckStore((store) => store.decks[selectedDeck])
+  const deck = useDeckStore((store) => store.decks[deckId || ''])
 
   return (
     <Card>

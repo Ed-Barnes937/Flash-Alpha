@@ -1,25 +1,21 @@
 import useDeckStore from '@/stores/DeckStore'
-import type { TDeck } from '@/types'
 import { Button } from '@components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
 import { LayersIcon } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
-type HeaderProps = {
-  selectedDeck: TDeck['id']
-  setSelected: (deck: TDeck['id']) => void
-}
-
-const Header = ({ selectedDeck, setSelected }: HeaderProps) => {
+const Header = () => {
   const decks = useDeckStore((store) => store.decks)
   const navigate = useNavigate()
+
+  const { deckId } = useParams()
 
   return (
     <div className="flex items-center justify-between border-b pb-1">
       <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Dashboard</h1>
       <div className="flex gap-2">
-        <Select defaultValue={selectedDeck} onValueChange={(id) => setSelected(id)}>
+        <Select defaultValue={deckId} onValueChange={(id) => navigate(`/deck/${id}`)}>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Deck" />
           </SelectTrigger>
@@ -34,7 +30,7 @@ const Header = ({ selectedDeck, setSelected }: HeaderProps) => {
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant={'ghost'} size={'icon'} onClick={() => navigate('decks')}>
+              <Button variant={'ghost'} size={'icon'} onClick={() => navigate('/')}>
                 <LayersIcon />
               </Button>
             </TooltipTrigger>

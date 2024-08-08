@@ -1,15 +1,12 @@
 import { Button } from '@components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card'
-import type { TDeck } from '@types'
 import { BlocksIcon, NotebookTextIcon, Rows3Icon } from 'lucide-react'
-import { createSearchParams, useNavigate } from 'react-router-dom'
+import { createSearchParams, useNavigate, useParams } from 'react-router-dom'
 
-type GameProps = {
-  selectedDeck: TDeck['id']
-}
-
-const Games = ({ selectedDeck }: GameProps) => {
+const Games = () => {
   const navigate = useNavigate()
+  const { deckId } = useParams()
+
   return (
     <Card>
       <CardHeader>
@@ -20,9 +17,11 @@ const Games = ({ selectedDeck }: GameProps) => {
         <div className="grid grid-cols-3 gap-12">
           <Button
             className="h-48"
-            onClick={() =>
-              navigate({ pathname: 'flashcard', search: createSearchParams({ deckId: selectedDeck }).toString() })
-            }
+            onClick={() => {
+              if (deckId) {
+                navigate({ pathname: '/flashcard', search: createSearchParams({ deckId }).toString() })
+              }
+            }}
           >
             <div>
               <NotebookTextIcon size={'10rem'} />
@@ -31,9 +30,11 @@ const Games = ({ selectedDeck }: GameProps) => {
           </Button>
           <Button
             className="h-48"
-            onClick={() =>
-              navigate({ pathname: 'rank', search: createSearchParams({ deckId: selectedDeck }).toString() })
-            }
+            onClick={() => {
+              if (deckId) {
+                navigate({ pathname: '/rank', search: createSearchParams({ deckId }).toString() })
+              }
+            }}
           >
             <div>
               <Rows3Icon size={'10rem'} />
@@ -42,9 +43,11 @@ const Games = ({ selectedDeck }: GameProps) => {
           </Button>
           <Button
             className="h-48"
-            onClick={() =>
-              navigate({ pathname: 'match', search: createSearchParams({ deckId: selectedDeck }).toString() })
-            }
+            onClick={() => {
+              if (deckId) {
+                navigate({ pathname: '/match', search: createSearchParams({ deckId }).toString() })
+              }
+            }}
           >
             <div>
               <BlocksIcon size={'10rem'} />

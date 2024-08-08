@@ -1,7 +1,7 @@
 import BackButton from '@components/Buttons/BackButton'
 import CardList from '@components/CardList'
 import { Button } from '@components/ui/button'
-import { Card, CardContent } from '@components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '@components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
 import { Input } from '@components/ui/input'
 import { Textarea } from '@components/ui/textarea'
@@ -111,8 +111,9 @@ const NewDeck = () => {
 
   return (
     <>
-      <div>
+      <div className="flex">
         <BackButton />
+        <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Create a new deck</h1>
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
@@ -203,7 +204,14 @@ const NewDeck = () => {
             </CardContent>
           </Card>
 
-          <CardList cards={cards} deleteCard={deleteCard} />
+          <Card>
+            <CardHeader>
+              <CardTitle>Card Deck</CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <CardList cards={cards} deleteCard={deleteCard} />
+            </CardContent>
+          </Card>
 
           <div className="flex justify-end gap-2">
             <Button type="submit">Save</Button>

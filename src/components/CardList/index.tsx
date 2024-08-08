@@ -1,6 +1,5 @@
 import type { TCards } from '../../types'
-import { Card, CardContent } from '../ui/card'
-import { Table, TableBody, TableHead, TableHeader, TableRow } from '../ui/table'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import CardRow from './CardRow'
 
 export type CardListProps = {
@@ -9,24 +8,25 @@ export type CardListProps = {
 }
 const CardList = ({ cards = {}, deleteCard }: CardListProps) => {
   return (
-    <Card>
-      <CardContent className="p-6">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Side 1</TableHead>
-              <TableHead>Side 2</TableHead>
-              <TableHead className="text-right">actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {Object.values(cards).map((card, index) => (
-              <CardRow key={`card-item-${index}`} {...card} deleteCard={deleteCard} />
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Side 1</TableHead>
+          <TableHead>Side 2</TableHead>
+          <TableHead className="text-right">actions</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Object.values(cards).map((card, index) => (
+          <CardRow key={`card-item-${index}`} {...card} deleteCard={deleteCard} />
+        ))}
+        {Object.values(cards).length === 0 && (
+          <TableRow>
+            <TableCell colSpan={3}>No Cards in this deck</TableCell>
+          </TableRow>
+        )}
+      </TableBody>
+    </Table>
   )
 }
 

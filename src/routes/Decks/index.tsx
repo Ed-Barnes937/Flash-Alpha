@@ -3,7 +3,7 @@ import { Card, CardContent } from '@components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
 import clsx from 'clsx'
-import { ChevronDownIcon, ChevronLeftIcon, CircleDotIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
+import { ChevronDownIcon, CircleDotIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useDeckStore from '../../stores/DeckStore'
@@ -61,12 +61,9 @@ const DeckList = () => {
     <>
       <div className="flex justify-between border-b">
         <div className="flex items-center">
-          <Button variant={'ghost'} size={'icon'} onClick={() => navigate('/')}>
-            <ChevronLeftIcon />
-          </Button>
           <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">My Decks</h1>
         </div>
-        <Button size={'icon'} aria-label="Create deck" onClick={() => navigate('new')}>
+        <Button size={'icon'} aria-label="Create deck" onClick={() => navigate('/deck/new')}>
           <PlusIcon />
         </Button>
       </div>

@@ -30,8 +30,8 @@ const DeckList = () => {
   const decks = useDeckStore((store) => Object.entries(store.decks))
   const deleteDeck = useDeckStore((store) => store.deleteDeck)
 
-  const [sortOption, setSortOption] = useState<TableColumns>('Created at')
-  const [sortDir, setSortDir] = useState(true)
+  const [sortOption, setSortOption] = useState<TableColumns>('Last Revised')
+  const [sortDir, setSortDir] = useState(false)
 
   let sortedArr = decks.sort((a, b) => {
     switch (sortOption) {
@@ -73,16 +73,26 @@ const DeckList = () => {
             <TableHeader>
               <TableRow>
                 <TableHead onClick={() => toggleSort('Name')} className="w-[100px] cursor-pointer">
-                  Name
-                  {sortOption === 'Name' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
+                  <div className="flex items-center gap-1">
+                    Name
+                    <ChevronDownIcon className={clsx({ 'rotate-180': sortDir, 'opacity-0': sortOption !== 'Name' })} />
+                  </div>
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Created at')}>
-                  Created At
-                  {sortOption === 'Created at' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
+                  <div className="flex items-center gap-1">
+                    Created At
+                    <ChevronDownIcon
+                      className={clsx({ 'rotate-180': sortDir, 'opacity-0': sortOption !== 'Created at' })}
+                    />
+                  </div>
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Last Revised')}>
-                  Last Revised
-                  {sortOption === 'Last Revised' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
+                  <div className="flex items-center gap-1">
+                    Last Revised
+                    <ChevronDownIcon
+                      className={clsx({ 'rotate-180': sortDir, 'opacity-0': sortOption !== 'Last Revised' })}
+                    />
+                  </div>
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Confidence')}>
                   <div className="flex items-center gap-2">
@@ -97,12 +107,18 @@ const DeckList = () => {
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
-                    {sortOption === 'Confidence' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
+                    <ChevronDownIcon
+                      className={clsx({ 'rotate-180': sortDir, 'opacity-0': sortOption !== 'Confidence' })}
+                    />
                   </div>
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Last Test Score')}>
-                  Last Test Score
-                  {sortOption === 'Last Test Score' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
+                  <div className="flex items-center gap-1">
+                    Last Test Score
+                    <ChevronDownIcon
+                      className={clsx({ 'rotate-180': sortDir, 'opacity-0': sortOption !== 'Last Test Score' })}
+                    />
+                  </div>
                 </TableHead>
                 <TableHead className="cursor-pointer text-right">actions</TableHead>
               </TableRow>
@@ -115,7 +131,7 @@ const DeckList = () => {
                     <div className="flex items-center">{deck.createdAt.toLocaleString()}</div>
                   </TableCell>
                   <TableCell>
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center justify-between gap-4">
                       {deck.lastVisited?.toLocaleString() || 'Never'}
                       <CircleDotIcon className={getLastRevisedStatusColor(deck.lastVisited)} />
                     </div>

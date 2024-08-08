@@ -1,14 +1,45 @@
 import { Button } from '@components/ui/button'
 import { Card, CardContent } from '@components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table'
-import { ChevronLeftIcon, PlusIcon, TrashIcon } from 'lucide-react'
+import { Tooltip, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
+import { TooltipContent } from '@radix-ui/react-tooltip'
+import { ChevronLeftIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useDeckStore from '../../stores/DeckStore'
+
+type TableColumns = 'Name' | 'Created at' | 'Last Revised' | 'Confidence' | 'Last Test Score'
 
 const DeckList = () => {
   const navigate = useNavigate()
   const decks = useDeckStore((store) => Object.entries(store.decks))
   const deleteDeck = useDeckStore((store) => store.deleteDeck)
+
+  const [sortOption, setSortOption] = useState<TableColumns>('Created at')
+  const [sortDir, setSortDir] = useState(true)
+
+  const sortedArr = decks.sort((a, b) => {
+    switch (sortOption) {
+      case 'Confidence':
+        return (a[1].confidenceScore || 0) - (b[1].confidenceScore || 0)
+      case 'Created at':
+        return a[1].createdAt.getTime() - b[1].createdAt.getTime()
+      case 'Last Revised':
+        return (a[1].lastVisited?.getTime() || 0) - (b[1].lastVisited?.getTime() || 0)
+      case 'Last Test Score':
+        return (a[1].flashcardScore || 0) - (b[1].flashcardScore || 0)
+      case 'Name':
+        return a[1].name.localeCompare(b[1].name)
+    }
+  })
+
+  const toggleSort = (header: TableColumns) => {
+    if (sortOption === header) setSortDir((dir) => !dir)
+    else {
+      setSortOption(header)
+      setSortDir(true)
+    }
+  }
 
   return (
     <>
@@ -29,17 +60,35 @@ const DeckList = () => {
             <TableHeader>
               <TableRow>
                 <TableHead className="w-[100px]">Name</TableHead>
-                <TableHead>Created At</TableHead>
-                <TableHead>Last Revised</TableHead>
+                <TableHead onClick={() => toggleSort('Created at')}>Created At</TableHead>
+                <TableHead onClick={() => toggleSort('Last Revised')}>Last Revised</TableHead>
+                <TableHead onClick={() => toggleSort('Confidence')}>
+                  <div className="flex items-center gap-2">
+                    Confidence
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger>
+                          <InfoIcon />
+                        </TooltipTrigger>
+                        <TooltipContent className="bg-black">
+                          <p>This is a self reported score at the end of each revision session</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                  </div>
+                </TableHead>
+                <TableHead onClick={() => toggleSort('Last Test Score')}>Last Test Score</TableHead>
                 <TableHead className="text-right">actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {decks.map(([id, deck]) => (
+              {sortedArr.map(([id, deck]) => (
                 <TableRow key={id} onClick={() => navigate(`/deck/${id}`)} className="cursor-pointer">
                   <TableCell className="font-medium">{deck.name}</TableCell>
-                  <TableCell>{deck.createdAt.toLocaleDateString()}</TableCell>
-                  <TableCell>{deck.lastVisited?.toLocaleDateString()}</TableCell>
+                  <TableCell>{deck.createdAt.toLocaleString()}</TableCell>
+                  <TableCell>{deck.lastVisited?.toLocaleString() || 'Never'}</TableCell>
+                  <TableCell>{deck.confidenceScore || 'Not reported'}</TableCell>
+                  <TableCell>{deck.flashcardScore || 'Not done'}</TableCell>
                   <TableCell className="text-right">
                     <Button
                       size={'icon'}

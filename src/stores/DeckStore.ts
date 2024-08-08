@@ -22,12 +22,12 @@ type DeckStore = DeckState & DeckActions
 const DEMO_DATA: TDecks = {
   '1': {
     id: '1',
-    name: 'first',
+    name: 'Maths',
     cards: {
-      '1': { id: '1', front: 'My Front', back: 'My Back', deckId: '1', createdAt: new Date() },
-      '2': { id: '2', front: 'My Other Front', back: 'My Other Back', deckId: '1', createdAt: new Date() },
-      '3': { id: '3', front: 'His Front', back: 'His Back', deckId: '1', createdAt: new Date() },
-      '4': { id: '4', front: 'Her Front', back: 'Her Back', deckId: '1', createdAt: new Date() },
+      '1': { id: '1', front: '2 + 2 =', back: '4', deckId: '1', createdAt: new Date() },
+      '2': { id: '2', front: '3 x 4', back: '12', deckId: '1', createdAt: new Date() },
+      '3': { id: '3', front: '5^2', back: '25', deckId: '1', createdAt: new Date() },
+      '4': { id: '4', front: 'sqrt(36)', back: '6', deckId: '1', createdAt: new Date() },
     },
     createdAt: new Date(),
   },

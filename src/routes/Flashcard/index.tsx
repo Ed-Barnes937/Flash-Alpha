@@ -70,24 +70,26 @@ const FlashCardView = () => {
         <Card>
           <CardHeader>
             <CardTitle>
-              {mode === 'Question' && `Question`}
+              {mode === 'Question' && `Question ${currentCardIndex + 1}:`}
               {mode === 'Answer' && `Answer`}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="w-full p-4 outline outline-black">{getText()}</div>
+            <div className="w-full rounded-sm border p-4">
+              <div className="text-center text-lg font-semibold">{getText()}</div>
+            </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="gap-4">
             {mode === 'Question' && <Button onClick={() => setMode('Answer')}>Reveal Answer</Button>}
             {mode === 'Answer' && (
-              <div className="flex gap-6">
+              <>
                 <Button className="w-full" onClick={() => AnswerQuestion(true)}>
                   <CheckIcon />
                 </Button>
                 <Button className="w-full" onClick={() => AnswerQuestion(false)} variant={'destructive'}>
                   <XIcon />
                 </Button>
-              </div>
+              </>
             )}
           </CardFooter>
         </Card>

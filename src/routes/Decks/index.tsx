@@ -1,8 +1,7 @@
 import { Button } from '@components/ui/button'
 import { Card, CardContent } from '@components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table'
-import { Tooltip, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
-import { TooltipContent } from '@radix-ui/react-tooltip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
 import clsx from 'clsx'
 import { ChevronDownIcon, ChevronLeftIcon, CircleDotIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import { useState } from 'react'
@@ -96,7 +95,7 @@ const DeckList = () => {
                         <TooltipTrigger>
                           <InfoIcon />
                         </TooltipTrigger>
-                        <TooltipContent className="bg-black">
+                        <TooltipContent>
                           <p>This is a self reported score at the end of each revision session</p>
                         </TooltipContent>
                       </Tooltip>

@@ -7,7 +7,7 @@ import { Input } from '@components/ui/input'
 import { Textarea } from '@components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useDeckStore from '@stores/DeckStore'
-import type { TCard } from '@types'
+import type { TCards } from '@types'
 import { AI_PROMPT } from '@utils/consts'
 import { generateUUID } from '@utils/generateUUID'
 import { parseAIResponse } from '@utils/parseAIResponse'
@@ -45,7 +45,7 @@ const NewDeck = () => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>()
-  const [cards, setCards] = useState<Record<string, TCard>>({})
+  const [cards, setCards] = useState<TCards>({})
 
   const fetchData = async (input: string) => {
     setLoading(true)

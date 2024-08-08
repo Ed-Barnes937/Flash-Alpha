@@ -8,7 +8,6 @@ type MetricsProps = {
 
 const Metrics = ({ selectedDeck }: MetricsProps) => {
   const deck = useDeckStore((store) => store.decks[selectedDeck])
-  const timeSinceLastVisited = deck.lastVisited && new Date().getTime() - deck.lastVisited.getTime()
 
   return (
     <Card>
@@ -17,7 +16,7 @@ const Metrics = ({ selectedDeck }: MetricsProps) => {
         <CardDescription>Track your learning metrics for this subject</CardDescription>
       </CardHeader>
       <CardContent>
-        <div>Time since last visited: {timeSinceLastVisited || 'never'}</div>
+        <div>Time since last visited: {deck.lastVisited?.toLocaleString() || 'never'}</div>
         <div>Confidence Score: '60%'</div>
       </CardContent>
     </Card>

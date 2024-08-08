@@ -3,7 +3,8 @@ import { Card, CardContent } from '@components/ui/card'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table'
 import { Tooltip, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
-import { ChevronLeftIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
+import clsx from 'clsx'
+import { ChevronDownIcon, ChevronLeftIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useDeckStore from '../../stores/DeckStore'
@@ -62,12 +63,15 @@ const DeckList = () => {
               <TableRow>
                 <TableHead onClick={() => toggleSort('Name')} className="w-[100px] cursor-pointer">
                   Name
+                  {sortOption === 'Name' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Created at')}>
                   Created At
+                  {sortOption === 'Created at' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Last Revised')}>
                   Last Revised
+                  {sortOption === 'Last Revised' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Confidence')}>
                   <div className="flex items-center gap-2">
@@ -82,10 +86,12 @@ const DeckList = () => {
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
+                    {sortOption === 'Confidence' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
                   </div>
                 </TableHead>
                 <TableHead className="cursor-pointer" onClick={() => toggleSort('Last Test Score')}>
                   Last Test Score
+                  {sortOption === 'Last Test Score' && <ChevronDownIcon className={clsx({ 'rotate-180': sortDir })} />}
                 </TableHead>
                 <TableHead className="cursor-pointer text-right">actions</TableHead>
               </TableRow>

@@ -19,6 +19,14 @@ export default defineConfig({
         find: '@utils',
         replacement: resolve(__dirname, './src/utils'),
       },
+      {
+        find: '@stores',
+        replacement: resolve(__dirname, './src/stores'),
+      },
+      {
+        find: '@types',
+        replacement: resolve(__dirname, './src/types.ts'),
+      },
     ],
   },
   define: {

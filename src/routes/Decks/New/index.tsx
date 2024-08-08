@@ -2,20 +2,20 @@ import BackButton from '@components/Buttons/BackButton'
 import CardList from '@components/CardList'
 import { Button } from '@components/ui/button'
 import { Card, CardContent, CardFooter } from '@components/ui/card'
-import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
 import { Input } from '@components/ui/input'
 import { Textarea } from '@components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useDeckStore from '@stores/DeckStore'
+import type { TCard } from '@types'
+import { AI_PROMPT } from '@utils/consts'
 import { generateUUID } from '@utils/generateUUID'
 import { parseAIResponse } from '@utils/parseAIResponse'
 import { LoaderIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { Form, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
-import useDeckStore from '../../../stores/DeckStore'
-import type { TCard } from '../../../types'
-import { AI_PROMPT } from '../../../utils/consts'
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name text must be at least 2 characters.' }),
@@ -73,7 +73,7 @@ const NewDeck = () => {
         throw new Error('Network response was not ok')
       }
       const data = await response.json()
-      console.log(data)
+
       setCards(parseAIResponse(data.choices[0].message.content))
     } catch (err) {
       // narrow error to string or error

@@ -4,6 +4,7 @@ import { Button } from '@components/ui/button'
 import { Card, CardContent } from '@components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
 import { Input } from '@components/ui/input'
+import { Separator } from '@components/ui/separator'
 import { Textarea } from '@components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useDeckStore from '@stores/DeckStore'
@@ -130,7 +131,7 @@ const NewDeck = () => {
                 )}
               />
 
-              <div className="mb-2 flex flex-col gap-2">
+              <div className="mb-4 flex flex-col gap-2">
                 <FormField
                   control={form.control}
                   name="bulkText"

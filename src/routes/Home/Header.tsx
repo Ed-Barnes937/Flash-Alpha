@@ -1,8 +1,8 @@
-import { Button } from '@/components/ui/button'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import useDeckStore from '@/stores/DeckStore'
 import type { TDeck } from '@/types'
+import { Button } from '@components/ui/button'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@components/ui/select'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
 import { LayersIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 

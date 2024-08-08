@@ -1,6 +1,6 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import useDeckStore from '@/stores/DeckStore'
 import type { TDeck } from '@/types'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card'
 
 type MetricsProps = {
   selectedDeck: TDeck['id']

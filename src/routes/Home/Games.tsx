@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import type { TDeck } from '@/types'
+import { Button } from '@components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@components/ui/card'
+import type { TDeck } from '@types'
 import { BlocksIcon, NotebookTextIcon, Rows3Icon } from 'lucide-react'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 

@@ -1,4 +1,4 @@
-import AppLayout from '@/components/Layout'
+import AppLayout from '@components/Layout'
 import { Route, Routes } from 'react-router-dom'
 import Deck from './Deck'
 import DeckList from './Decks'

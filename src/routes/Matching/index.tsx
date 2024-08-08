@@ -140,7 +140,7 @@ const MatchingPage = ({}: MatchingPageProps) => {
             </TableHeader>
             <TableBody>
               {correctAnswers.map((id) => (
-                <TableRow>
+                <TableRow key={id}>
                   <TableCell>
                     {deck.cards[id].front}
                     <Button

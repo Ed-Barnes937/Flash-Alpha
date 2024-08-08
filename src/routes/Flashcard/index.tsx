@@ -23,7 +23,7 @@ const FlashCardView = () => {
   const { speak } = useSpeech()
 
   const uuidArr = Object.values(cards).map((card) => card.id)
-  const jumbledArr = shuffleArray(uuidArr)
+  const [jumbledArr] = useState(shuffleArray(uuidArr))
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
   const [mode, setMode] = useState<Mode>('Question')
@@ -31,6 +31,7 @@ const FlashCardView = () => {
 
   const getText = () => {
     const card = cards[jumbledArr[currentCardIndex]]
+    console.log(currentCardIndex, card, mode)
     if (card) {
       switch (mode) {
         case 'Question':
@@ -46,12 +47,13 @@ const FlashCardView = () => {
   const AnswerQuestion = (correct: boolean) => {
     const nextCardCount = currentCardIndex + 1
 
+    if (correct) setCorrectCount((count) => count + 1)
+    deckId && updateLastVisitedCard(deckId, jumbledArr[currentCardIndex])
     if (nextCardCount >= Object.values(cards).length) {
       setMode('Finished')
+      // only update deck once it's finished
       deckId && updateLastVisitedDeck(deckId)
     } else {
-      if (correct) setCorrectCount((count) => count + 1)
-      deckId && updateLastVisitedCard(deckId, jumbledArr[currentCardIndex])
       setCurrentCardIndex(nextCardCount)
       setMode('Question')
     }

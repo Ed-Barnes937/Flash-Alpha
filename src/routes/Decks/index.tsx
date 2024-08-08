@@ -18,11 +18,10 @@ const WEEKS = DAYS * 7
 
 const getLastRevisedStatusColor = (lastRevised?: Date) => {
   if (!lastRevised) return 'text-red-700'
-  const diffToNow = (new Date().getTime() - lastRevised.getTime()) / 1000
-
-  if (diffToNow < 2 * DAYS) return 'text-green-700'
-  if (diffToNow < WEEKS) return 'text-yellow-500'
-  return 'text-red-700'
+  const diffToNow = (new Date().getTime() - lastRevised.getTime())
+	if (diffToNow < 2 * DAYS) return 'text-green-700'
+	if (diffToNow < WEEKS) return 'text-yellow-500'
+	return 'text-red-700'
 }
 
 const DeckList = () => {

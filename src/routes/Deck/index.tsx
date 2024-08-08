@@ -1,7 +1,7 @@
-import BackButton from '@/components/BackButton'
-import CardList from '@/components/CardList'
-import useDeckStore from '@/stores/DeckStore'
+import BackButton from '@components/Buttons/BackButton'
+import CardList from '@components/CardList'
 import { Outlet, useParams } from 'react-router-dom'
+import useDeckStore from '../../stores/DeckStore'
 
 type DeckListProps = {}
 const DeckList = ({}: DeckListProps) => {

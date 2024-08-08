@@ -1,10 +1,9 @@
-import BackButton from '@/components/BackButton'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
-import useDeckStore from '@/stores/DeckStore'
-import { PlusIcon, TrashIcon } from 'lucide-react'
+import { Button } from '@components/ui/button'
+import { Card, CardContent } from '@components/ui/card'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@components/ui/table'
+import { ChevronLeftIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
+import useDeckStore from '../../stores/DeckStore'
 
 const DeckList = () => {
   const navigate = useNavigate()
@@ -15,7 +14,9 @@ const DeckList = () => {
     <>
       <div className="flex justify-between border-b">
         <div className="flex items-center">
-          <BackButton />
+          <Button variant={'ghost'} size={'icon'} onClick={() => navigate('/')}>
+            <ChevronLeftIcon />
+          </Button>
           <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">My Decks</h1>
         </div>
         <Button size={'icon'} aria-label="Create deck" onClick={() => navigate('new')}>

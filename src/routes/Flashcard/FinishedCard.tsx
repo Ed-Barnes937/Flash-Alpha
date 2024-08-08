@@ -9,7 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
 const formSchema = z.object({
-  confidence: z.number().min(0).max(100),
+  confidence: z.string().min(0).max(100),
 })
 
 type FinishedCardProps = {
@@ -27,12 +27,12 @@ const FinishedCard = ({ result }: FinishedCardProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      confidence: 50,
+      confidence: '50',
     },
   })
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    deckId && setConfidenceScore(deckId, values.confidence)
+    deckId && setConfidenceScore(deckId, Number.parseInt(values.confidence))
     deckId && setFlashcardScore(deckId, result)
 
     navigate(`/`)

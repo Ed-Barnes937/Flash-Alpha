@@ -25,6 +25,7 @@ const FlashCardView = () => {
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
   const [mode, setMode] = useState<Mode>('Question')
+  const [correctCount, setCorrectCount] = useState(0)
 
   const getText = () => {
     const card = cards[jumbledArr[currentCardIndex]]
@@ -48,10 +49,15 @@ const FlashCardView = () => {
       setMode('Finished')
       deckId && updateLastVisitedDeck(deckId)
     } else {
+      if (correct) setCorrectCount((count) => count + 1)
       deckId && updateLastVisitedCard(deckId, jumbledArr[currentCardIndex])
       setCurrentCardIndex(nextCardCount)
       setMode('Question')
     }
+  }
+
+  const getResultScore = () => {
+    return Math.floor((correctCount / jumbledArr.length) * 100)
   }
 
   return (
@@ -60,7 +66,7 @@ const FlashCardView = () => {
         <BackButton />
         <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Flashcard Revision</h1>
       </div>
-      {mode === 'Finished' && <FinishedCard result={100} />}
+      {mode === 'Finished' && <FinishedCard result={getResultScore()} />}
       {mode !== 'Finished' && (
         <Card>
           <CardHeader>

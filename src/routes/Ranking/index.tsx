@@ -1,3 +1,4 @@
+import BackButton from '@components/Buttons/BackButton'
 import { Button } from '@components/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@components/ui/card'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
@@ -26,6 +27,7 @@ const RankingPage = () => {
 
   const setConfidenceScore = useDeckStore((store) => store.setDeckConfidence)
 
+  const deck = useDeckStore((store) => store.decks[deckId || ''])
   const [cards, setCards] = useState<TCard[]>(
     Object.values(useDeckStore((store) => store.decks[deckId || ''].cards) || {})
   )
@@ -55,9 +57,13 @@ const RankingPage = () => {
 
   return (
     <DndProvider backend={HTML5Backend}>
+      <div className="flex items-center border-b">
+        <BackButton />
+        <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">Knowledge Ranking</h1>
+      </div>
       <Card>
         <CardHeader>
-          <CardTitle>Card Rankings</CardTitle>
+          <CardTitle className="capitalize">{deck.name}</CardTitle>
           <CardDescription>Order these cards based on their relevance to the topic</CardDescription>
         </CardHeader>
         <CardContent>

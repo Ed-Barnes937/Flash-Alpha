@@ -4,6 +4,7 @@ import DeckHome from './DeckDashboard'
 import DeckList from './Decks'
 import NewDeck from './Decks/New'
 import FlashCardView from './Flashcard'
+import MatchingPage from './Matching'
 import NewCardForm from './NewCardForm'
 import RankingPage from './Ranking'
 import { Settings } from './Settings'
@@ -19,14 +20,7 @@ const AppRoutes = () => {
         </Route>
         <Route path="flashcard" element={<FlashCardView />} />
         <Route path="rank" element={<RankingPage />} />
-        <Route
-          path="match"
-          element={
-            <div>
-              <h1>This is where we'd show a matching game</h1>
-            </div>
-          }
-        />
+        <Route path="match" element={<MatchingPage />} />
         <Route path="settings" element={<Settings />}></Route>
       </Route>
     </Routes>

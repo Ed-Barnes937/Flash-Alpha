@@ -31,7 +31,6 @@ const FlashCardView = () => {
 
   const getText = () => {
     const card = cards[jumbledArr[currentCardIndex]]
-    console.log(currentCardIndex, card, mode)
     if (card) {
       switch (mode) {
         case 'Question':

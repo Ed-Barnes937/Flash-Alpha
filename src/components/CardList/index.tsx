@@ -4,7 +4,7 @@ import CardRow from './CardRow'
 
 export type CardListProps = {
   cards: TCards
-  deleteCard: (deckId: string, cardId: string) => void
+  deleteCard?: (deckId: string, cardId: string) => void
 }
 const CardList = ({ cards = {}, deleteCard }: CardListProps) => {
   return (

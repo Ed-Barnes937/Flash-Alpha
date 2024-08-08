@@ -4,12 +4,27 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Tooltip, TooltipProvider, TooltipTrigger } from '@components/ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
 import clsx from 'clsx'
-import { ChevronDownIcon, ChevronLeftIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
+import { ChevronDownIcon, ChevronLeftIcon, CircleDotIcon, InfoIcon, PlusIcon, TrashIcon } from 'lucide-react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useDeckStore from '../../stores/DeckStore'
 
 type TableColumns = 'Name' | 'Created at' | 'Last Revised' | 'Confidence' | 'Last Test Score'
+
+const SECONDS = 1000
+const MINUTES = SECONDS * 60
+const HOURS = MINUTES * 60
+const DAYS = HOURS * 24
+const WEEKS = DAYS * 7
+
+const getLastRevisedStatusColor = (lastRevised?: Date) => {
+  if (!lastRevised) return 'text-red-700'
+  const diffToNow = (new Date().getTime() - lastRevised.getTime()) / 1000
+
+  if (diffToNow < 2 * DAYS) return 'text-green-700'
+  if (diffToNow < WEEKS) return 'text-yellow-500'
+  return 'text-red-700'
+}
 
 const DeckList = () => {
   const navigate = useNavigate()
@@ -100,8 +115,15 @@ const DeckList = () => {
               {sortedArr.map(([id, deck]) => (
                 <TableRow key={id} onClick={() => navigate(`/deck/${id}`)} className="cursor-pointer">
                   <TableCell className="font-medium">{deck.name}</TableCell>
-                  <TableCell>{deck.createdAt.toLocaleString()}</TableCell>
-                  <TableCell>{deck.lastVisited?.toLocaleString() || 'Never'}</TableCell>
+                  <TableCell>
+                    <div className="flex items-center">{deck.createdAt.toLocaleString()}</div>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-4">
+                      {deck.lastVisited?.toLocaleString() || 'Never'}
+                      <CircleDotIcon className={getLastRevisedStatusColor(deck.lastVisited)} />
+                    </div>
+                  </TableCell>
                   <TableCell>{deck.confidenceScore || 'Not reported'}</TableCell>
                   <TableCell>{deck.flashcardScore || 'Not done'}</TableCell>
                   <TableCell className="text-right">

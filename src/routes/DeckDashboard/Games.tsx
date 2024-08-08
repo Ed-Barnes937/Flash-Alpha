@@ -23,8 +23,8 @@ const Games = () => {
               }
             }}
           >
-            <div>
-              <NotebookTextIcon size={'10rem'} />
+            <div className="aspect-square">
+              <NotebookTextIcon className="h-20 w-20" />
               Flashcards
             </div>
           </Button>
@@ -36,8 +36,8 @@ const Games = () => {
               }
             }}
           >
-            <div>
-              <Rows3Icon size={'10rem'} />
+            <div className="aspect-square">
+              <Rows3Icon className="h-20 w-20" />
               Ranking
             </div>
           </Button>
@@ -49,8 +49,8 @@ const Games = () => {
               }
             }}
           >
-            <div>
-              <BlocksIcon size={'10rem'} />
+            <div className="aspect-square">
+              <BlocksIcon className="h-20 w-20" />
               Matching
             </div>
           </Button>

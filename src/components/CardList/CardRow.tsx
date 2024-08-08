@@ -25,9 +25,11 @@ const CardRow = ({ front, back, id, deckId, deleteCard }: CardRowProps) => {
         </Button>{' '}
       </TableCell>
       <TableCell className="text-right">
-        <Button size={'icon'} type="button" onClick={() => deleteCard(deckId || '', id)}>
-          <TrashIcon />
-        </Button>
+        {deleteCard && (
+          <Button size={'icon'} type="button" onClick={() => deleteCard(deckId || '', id)}>
+            <TrashIcon />
+          </Button>
+        )}
       </TableCell>
     </TableRow>
   )

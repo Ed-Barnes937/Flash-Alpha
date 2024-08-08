@@ -21,6 +21,7 @@ const FinishedCard = ({ result }: FinishedCardProps) => {
   const [params] = useSearchParams()
   const deckId = params.get('deckId')
 
+  const deck = useDeckStore((store) => store.decks[deckId || ''])
   const setConfidenceScore = useDeckStore((store) => store.setDeckConfidence)
   const setFlashcardScore = useDeckStore((store) => store.setDeckFlashcardScore)
 
@@ -40,7 +41,7 @@ const FinishedCard = ({ result }: FinishedCardProps) => {
 
   return (
     <Card>
-      <CardHeader>🎉 Finished revision of 'insert deck name here' 🎉</CardHeader>
+      <CardHeader>🎉 Finished revision of {deck.name} 🎉</CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">

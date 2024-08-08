@@ -4,7 +4,6 @@ import { Button } from '@components/ui/button'
 import { Card, CardContent } from '@components/ui/card'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@components/ui/form'
 import { Input } from '@components/ui/input'
-import { Separator } from '@components/ui/separator'
 import { Textarea } from '@components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useDeckStore from '@stores/DeckStore'
@@ -38,6 +37,9 @@ const NewDeck = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: '',
+      bulkText: '',
+      newQuestion: '',
+      newAnswer: '',
     },
   })
 
@@ -131,7 +133,7 @@ const NewDeck = () => {
                 )}
               />
 
-              <div className="mb-4 flex flex-col gap-2">
+              <div className="my-4 flex flex-col gap-2">
                 <FormField
                   control={form.control}
                   name="bulkText"
@@ -160,7 +162,7 @@ const NewDeck = () => {
                     <FormItem>
                       <FormLabel>New Question</FormLabel>
                       <FormControl>
-                        <Input type="text" placeholder="" {...field} />
+                        <Input placeholder="" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -173,7 +175,7 @@ const NewDeck = () => {
                     <FormItem>
                       <FormLabel>New Answer</FormLabel>
                       <FormControl>
-                        <Input type="text" placeholder="" {...field} />
+                        <Input placeholder="" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>

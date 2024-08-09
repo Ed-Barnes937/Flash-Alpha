@@ -11,7 +11,7 @@ const AppLayout = () => {
           onClick={() => navigate('/')}
           className="cursor-pointer scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
         >
-          Chad Flashcards
+          Skoova
         </h1>
         <div className="text-right">
           <Button variant={'ghost'} size={'icon'} onClick={() => navigate('/settings')}>

@@ -110,6 +110,24 @@ const NewDeck = () => {
     })
   }
 
+  const manuallyAddCard = () => {
+    const newQ = form.getValues().newQuestion
+    const newA = form.getValues().newAnswer
+    setCards((cards) => {
+      const result = { ...cards }
+      const uuid = generateUUID()
+      result[uuid] = {
+        id: uuid,
+        front: newQ,
+        back: newA,
+        createdAt: new Date(),
+      }
+      return result
+    })
+    form.resetField('newQuestion')
+    form.resetField('newAnswer')
+  }
+
   return (
     <>
       <div className="flex">
@@ -183,22 +201,7 @@ const NewDeck = () => {
                     </FormItem>
                   )}
                 />
-                <Button
-                  type="button"
-                  onClick={() =>
-                    setCards((cards) => {
-                      const result = { ...cards }
-                      const uuid = generateUUID()
-                      result[uuid] = {
-                        id: uuid,
-                        front: form.getValues().newQuestion,
-                        back: form.getValues().newAnswer,
-                        createdAt: new Date(),
-                      }
-                      return result
-                    })
-                  }
-                >
+                <Button type="button" onClick={manuallyAddCard}>
                   Manually add card
                 </Button>
               </div>

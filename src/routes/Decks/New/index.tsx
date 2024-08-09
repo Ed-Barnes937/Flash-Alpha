@@ -230,15 +230,19 @@ const NewDeck = () => {
               </div>
 
               {hintList.length !== 0 && (
-                <>
-                  <p>{hintList[hintIndex]}</p>
-                  <Button type="button" onClick={() => setHintIndex(Math.max(0, hintIndex - 1))}>
-                    Previous Hint
-                  </Button>
-                  <Button type="button" onClick={() => setHintIndex(Math.min(hintList.length - 1, hintIndex + 1))}>
-                    Next Hint
-                  </Button>
-                </>
+                <div className="flex flex-col gap-2">
+                  <div className="rounded-md border p-2">
+                    <p>{hintList[hintIndex]}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button type="button" onClick={() => setHintIndex(Math.max(0, hintIndex - 1))}>
+                      Previous Hint
+                    </Button>
+                    <Button type="button" onClick={() => setHintIndex(Math.min(hintList.length - 1, hintIndex + 1))}>
+                      Next Hint
+                    </Button>
+                  </div>
+                </div>
               )}
 
               <div className="flex flex-col gap-2">
